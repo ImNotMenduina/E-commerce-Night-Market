@@ -7,5 +7,4 @@ export default class BundlesController {
         const {data} = await response.json()
         return view.render('pages/bundles/bundles', {bundles : data})
     }
-
 }

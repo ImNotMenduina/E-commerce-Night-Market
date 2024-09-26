@@ -5,7 +5,7 @@ export default class WeaponsController {
     async get_weapons( {view} : HttpContext) {
         const response = await fetch("https://valorant-api.com/v1/weapons")
         const data = await response.json()
-        return view.render("pages/weapons/category", {value : data})
+        return view.render('pages/weapons/category', {value : data})
     }
 
     async get_available_skins( {params, view} : HttpContext ) {
@@ -19,6 +19,6 @@ export default class WeaponsController {
             }
         }
         // return all weapon skins
-        return view.render("pages/weapons/skins", {value : skins})
+        return view.render('pages/weapons/skins', {value : skins, name : params.category})
     }
 }

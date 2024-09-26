@@ -5,13 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    @each(skin in value)
-        <div>
-            <h3>{{skin.displayName}}</h3>
-            <img src="{{skin.displayIcon}}" alt="">
+    <div class="bg-white">
+        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+          <h2 class="text-2xl font-bold tracking-tight text-gray-900"> {{ name }} </h2>
+            <div class="grid grid-cols-3 gap-4">
+                @each(item in value)
+                <div class="group relative">
+                    <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-56 p-8">
+                        <img src="{{ item.displayIcon }}" alt="{{ item.displayName }}" class=" object-contain object-center ">
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                        <h3 class="text-sm text-gray-700">
+                            <a href="#">
+                            <span aria-hidden="true" class="absolute inset-0"></span>
+                            {{ item.displayName }}
+                            </a>
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500">Black</p>
+                        </div>
+                        <p class="text-sm font-medium text-gray-900">$35</p>
+                    </div>
+                </div>
+                @end  
+            </div>
         </div>
-    @end
+    </div>
 </body>
 </html>
