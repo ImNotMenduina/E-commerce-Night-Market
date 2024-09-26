@@ -72,12 +72,15 @@
 
     {{--  get all weapons categories  --}}
     @let({data} = value)
-    @each(i in data)
-      <div>
-        <a href="{{ route('category', [i.displayName]) }}">{{ i.displayName }}</a>
-        <img src="{{ i.displayIcon }}" />
-      </div>
-    @end
-    
+    <div class="grid grid-cols-3 gap-4">
+      @each(i in data)
+        <div>
+          @if(i.shopData)
+            <a href="{{ route('category', [i.displayName]) }}">{{ i.displayName }}</a>
+            <img src="{{ i.shopData.newImage }}" />
+          @end
+        </div>
+      @end
+    </div>
   </body>
 </html>
