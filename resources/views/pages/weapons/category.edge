@@ -30,7 +30,9 @@
       }
     </style>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+      
+    </script>
 
     <script>
       tailwind.config = {
@@ -67,15 +69,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
   <body class="min-h-screen w-screen font-sans">
-  
-  {{--  get all weapons categories  --}}
-  @let({data} = value)
-  @each(i in data)
-    <div>
-      <a href="{{ route('category', [i.displayName]) }}">{{i.displayName}}</a>
-      <img src="{{i.displayIcon}}"/>
-    </div>
-  @end
 
+    {{--  get all weapons categories  --}}
+    @let({data} = value)
+    @each(i in data)
+      <div>
+        <a href="{{ route('category', [i.displayName]) }}">{{ i.displayName }}</a>
+        <img src="{{ i.displayIcon }}" />
+      </div>
+    @end
+    
   </body>
 </html>
