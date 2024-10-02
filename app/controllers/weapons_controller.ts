@@ -1,3 +1,4 @@
+import Skin from '#models/skin'
 import Weapon from '#models/weapon'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -8,23 +9,12 @@ export default class WeaponsController {
   }
 
   async get_available_skins({ params, view }: HttpContext) {
-    const response = await fetch('https://valorant-api.com/v1/weapons/skins')
-    const { data } = await response.json()
-
-    // pre-processing skins //
-    const skins = data.filter(
-      (item) =>
-        item.displayName.includes(params.category) &&
-        item.displayIcon != null &&
-        !item.displayName.includes('Standard')
-    )
-    // return all weapon skins //
-    return view.render('pages/weapons/skins', { value: skins, name: params.category })
+    const data = await Skin.query().where('displayName', 'like', `%${params.category}%`)
+    return view.render('pages/weapons/skins', { data, name: params.category })
   }
 
   async get_skin({ params, view }: HttpContext) {
-    const response = await fetch(`https://valorant-api.com/v1/weapons/skins/${params.skinUuid}`)
-    const { data } = await response.json()
+    const data = await Skin.findOrFail({ uuid: params.skinUuid })
     return view.render('pages/weapons/skin', { name: params.category, skin: data })
   }
 }

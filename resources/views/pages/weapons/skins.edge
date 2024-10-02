@@ -19,7 +19,7 @@
           {{ name }}
         </h2>
         <div class="grid grid-cols-3 gap-4">
-          @each(item in value)
+          @each(item in data)
             <div
               x-data="{ modalOpen: false }"
               @keydown.escape.window="modalOpen = false"
