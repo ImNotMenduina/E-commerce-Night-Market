@@ -1,9 +1,10 @@
-import Skin from '#models/skin'
+//import Skin from '#models/skin'
 import Weapon from '#models/weapon'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
   async run() {
+    // seed ??
     try {
       const response = await fetch('https://valorant-api.com/v1/weapons')
       const { data } = await response.json()
@@ -28,7 +29,7 @@ export default class extends BaseSeeder {
         })
 
         await neweapon.related('skins').createMany(sk)
-        
+      }
     } catch (error) {
       console.log('Weapon Seeder : ' + error)
     }
