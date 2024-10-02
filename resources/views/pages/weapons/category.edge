@@ -2,12 +2,12 @@
 <html lang="en">
   @!component('components/header')
 
-  <body class="min-h-screen w-screen font-sans">
+  <body class="min-h-screen w-screen font-sans bg-black">
 
     @!component('components/nav')
 
     {{--  get all weapons categories  --}}
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-4 p-8 bg-red-600">
       @each(w in data)
         @!component('components/weapon/category', { weapon: w })
       @end
