@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import Level from './level.js'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Skin extends BaseModel {
   @column({ isPrimary: true })
@@ -19,6 +21,9 @@ export default class Skin extends BaseModel {
 
   @column()
   declare themeUuid: string
+
+  @hasMany(() => Level)
+  declare levels: HasMany<typeof Level>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

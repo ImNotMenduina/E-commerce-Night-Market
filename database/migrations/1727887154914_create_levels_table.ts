@@ -1,16 +1,13 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'skins'
+  protected tableName = 'levels'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('weapon_id').references('id').inTable('weapons').onDelete('CASCADE')
-      table.string('skin_uuid')
-      table.string('display_name')
-      table.string('display_icon')
-      table.string('theme_uuid')
+      table.integer('skin_id')
+      table.string('streamed_video')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

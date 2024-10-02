@@ -1,3 +1,4 @@
+import Skin from '#models/skin'
 import Weapon from '#models/weapon'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
@@ -9,14 +10,25 @@ export default class extends BaseSeeder {
       // removes 'Melee' weapon
       data.pop()
 
-      const sk = data.map((s) => {
-        return {
-          displayName: s.displayName,
-          displayIcon: s.displayIcon,
-          shopImage: s.shopData.newImage,
-        }
-      })
-      await Weapon.createMany(sk)
+      for (const w of data) {
+        const neweapon = await Weapon.create({
+          displayIcon: w.displayIcon,
+          displayName: w.displayName,
+          shopImage: w.shopData.newImage,
+        })
+
+        const { skins } = w
+        const sk = skins.map((s) => {
+          return {
+            skinUuid: s.uuid,
+            displayName: s.displayName,
+            themeUuid: s.themeUuid,
+            displayIcon: s.displayIcon,
+          }
+        })
+
+        await neweapon.related('skins').createMany(sk)
+        
     } catch (error) {
       console.log('Weapon Seeder : ' + error)
     }
