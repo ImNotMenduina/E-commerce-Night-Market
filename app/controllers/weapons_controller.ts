@@ -14,7 +14,7 @@ export default class WeaponsController {
   }
 
   async get_skin({ params, view }: HttpContext) {
-    const data = await Skin.findOrFail({ uuid: params.skinUuid })
-    return view.render('pages/weapons/skin', { name: params.category, skin: data })
+    const data = await Skin.findBy({ skinUuid: params.skinUuid })
+    return view.render('pages/weapons/skin', { data, name: params.category })
   }
 }
