@@ -9,6 +9,7 @@ export default class extends BaseSeeder {
 
       const sk = data.map((s) => {
         return {
+          skinUuid: s.uuid,
           displayName: s.displayName,
           themeUuid: s.themeUuid,
           displayIcon: s.displayIcon,
