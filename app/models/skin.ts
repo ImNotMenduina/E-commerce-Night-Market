@@ -6,6 +6,9 @@ export default class Skin extends BaseModel {
   declare id: number
 
   @column()
+  declare weaponId: number
+
+  @column()
   declare skinUuid: string
 
   @column()

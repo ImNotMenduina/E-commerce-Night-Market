@@ -6,6 +6,7 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
+      table.string('weapon_id').references('id').inTable('weapons').onDelete('CASCADE')
       table.string('skin_uuid')
       table.string('display_name')
       table.string('display_icon')

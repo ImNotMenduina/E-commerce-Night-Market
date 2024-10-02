@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import Skin from './skin.js'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Weapon extends BaseModel {
   @column({ isPrimary: true })
@@ -16,7 +18,9 @@ export default class Weapon extends BaseModel {
   @column()
   declare shopImage: string
 
-  @column()
+  @hasMany(() => Skin)
+  declare skins: HasMany<typeof Skin>
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
