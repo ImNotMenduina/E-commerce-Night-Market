@@ -1,10 +1,10 @@
+import Weapon from '#models/weapon'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class WeaponsController {
   async get_weapons({ view }: HttpContext) {
-    const response = await fetch('https://valorant-api.com/v1/weapons')
-    const data = await response.json()
-    return view.render('pages/weapons/category', { value: data })
+    const data = await Weapon.all()
+    return view.render('pages/weapons/category', { data })
   }
 
   async get_available_skins({ params, view }: HttpContext) {

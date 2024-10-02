@@ -71,14 +71,11 @@
   <body class="min-h-screen w-screen font-sans">
 
     {{--  get all weapons categories  --}}
-    @let({data} = value)
     <div class="grid grid-cols-3 gap-4">
       @each(i in data)
         <div>
-          @if(i.shopData)
-            <a href="{{ route('category', [i.displayName]) }}">{{ i.displayName }}</a>
-            <img src="{{ i.shopData.newImage }}" />
-          @end
+          <a href="{{ route('category', [i.displayName]) }}">{{ i.displayName }}</a>
+          <img src="{{ i.shopImage }}" />
         </div>
       @end
     </div>
