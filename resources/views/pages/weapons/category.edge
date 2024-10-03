@@ -7,12 +7,20 @@
     @!component('components/nav')
 
     {{--  get all weapons categories  --}}
-    <div class="grid grid-cols-3 gap-4 p-8 bg-red-600">
-      @each(w in data)
-        @!component('components/weapon/category', { weapon: w })
-      @end
-    </div>
+    @!slider({data: data})
 
     @!footer()
+
+    <script>
+      // Initialization for ES Users
+      import {
+        Carousel,
+        initTWE
+      } from "tw-elements";
+      
+      initTWE({
+        Carousel: Carousel
+      });
+    </script>
   </body>
 </html>
