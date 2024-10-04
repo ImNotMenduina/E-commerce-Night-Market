@@ -6,8 +6,8 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('skin_id')
       table.string('streamed_video')
+      table.string('display_name')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

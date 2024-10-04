@@ -6,13 +6,10 @@ export default class Level extends BaseModel {
   declare id: number
 
   @column()
-  declare skinId: number
+  declare displayName: string
 
   @column()
   declare streamedVideo: string
-
-  @column()
-  declare displayName: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

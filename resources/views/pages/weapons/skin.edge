@@ -11,6 +11,20 @@
         </div>
         <img src="{{ skin.full_render }}" />
       @end
+      @each(level in levels)
+        {{ level.streamedVideo }}
+        <iframe
+          width="560"
+          height="315"
+          src="{{ level.streamed_video }}"
+          title="{{ data.displayName }}"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        >
+        </iframe>
+      @end
     </div>
   </body>
 </html>

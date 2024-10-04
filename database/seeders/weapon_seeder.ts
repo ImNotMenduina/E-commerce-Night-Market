@@ -1,6 +1,7 @@
 //import Skin from '#models/skin'
 import Chroma from '#models/chroma'
 import Skin from '#models/skin'
+import Level from '#models/level'
 import Weapon from '#models/weapon'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
@@ -47,6 +48,12 @@ export default class extends BaseSeeder {
               displayIcon: c.displayIcon,
               fullRender: c.fullRender,
               swatch: c.swatch,
+            })
+          }
+          for (const l of s.levels) {
+            await Level.create({
+              displayName: l.displayName,
+              streamedVideo: l.streamedVideo,
             })
           }
         }

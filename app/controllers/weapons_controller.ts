@@ -34,7 +34,7 @@ export default class WeaponsController {
   async get_skin({ params, view }: HttpContext) {
     const data = await Skin.findBy({ skinUuid: params.skinUuid })
 
-    const query = await db
+    const query_skins = await db
       .from('skins')
       .join('chromas', (qr) => {
         qr.on('skins.display_name', '=', 'chromas.display_name').andOnVal(
@@ -48,6 +48,17 @@ export default class WeaponsController {
       .select('chromas.full_render')
       .select('chromas.swatch')
 
-    return view.render('pages/weapons/skin', { data: query })
+    const query_levels = await db
+      .from('skins')
+      .join('levels', (qr) => {
+        qr.on('skins.display_name', '=', 'levels.display_name').andOnVal(
+          'levels.display_name',
+          '=',
+          `${data?.displayName}`
+        )
+      })
+      .select('levels.streamed_video')
+
+    return view.render('pages/weapons/skin', { data: query_skins, levels: query_levels })
   }
 }
