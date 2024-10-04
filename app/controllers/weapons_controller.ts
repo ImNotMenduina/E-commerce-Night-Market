@@ -1,6 +1,7 @@
 import Skin from '#models/skin'
 import Weapon from '#models/weapon'
 import type { HttpContext } from '@adonisjs/core/http'
+import db from '@adonisjs/lucid/services/db'
 
 export default class WeaponsController {
   async get_weapons({ view }: HttpContext) {
@@ -32,6 +33,21 @@ export default class WeaponsController {
 
   async get_skin({ params, view }: HttpContext) {
     const data = await Skin.findBy({ skinUuid: params.skinUuid })
-    return view.render('pages/weapons/skin', { data })
+
+    const query = await db
+      .from('skins')
+      .join('chromas', (qr) => {
+        qr.on('skins.display_name', '=', 'chromas.display_name').andOnVal(
+          'chromas.display_name',
+          '=',
+          `${data?.displayName}`
+        )
+      })
+      .select('skins.display_name')
+      .select('skins.display_icon')
+      .select('chromas.full_render')
+      .select('chromas.swatch')
+
+    return view.render('pages/weapons/skin', { data: query })
   }
 }
