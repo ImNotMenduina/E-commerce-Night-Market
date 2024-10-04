@@ -1,4 +1,6 @@
 //import Skin from '#models/skin'
+import Chroma from '#models/chroma'
+import Skin from '#models/skin'
 import Weapon from '#models/weapon'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
@@ -19,7 +21,8 @@ export default class extends BaseSeeder {
         })
 
         const { skins } = w
-        const sk = skins.map((s) => {
+
+        const s = skins.map((s) => {
           return {
             skinUuid: s.uuid,
             displayName: s.displayName,
@@ -28,7 +31,25 @@ export default class extends BaseSeeder {
           }
         })
 
+        const sk = s.filter(
+          (i) =>
+            !i.displayName.includes('Random') &&
+            !i.displayName.includes('Standard') &&
+            i.displayIcon != null
+        )
+
         await neweapon.related('skins').createMany(sk)
+
+        for (const s of skins) {
+          for (const c of s.chromas) {
+            await Chroma.create({
+              displayName: s.displayName,
+              displayIcon: c.displayIcon,
+              fullRender: c.fullRender,
+              swatch: c.swatch,
+            })
+          }
+        }
       }
     } catch (error) {
       console.log('Weapon Seeder : ' + error)
