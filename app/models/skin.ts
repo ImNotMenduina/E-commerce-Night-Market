@@ -2,8 +2,12 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import Level from './level.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
+import Chroma from './chroma.js'
 
 export default class Skin extends BaseModel {
+  @column({ isPrimary: true })
+  declare displayName: string
+
   @column({ isPrimary: true })
   declare id: number
 
@@ -14,9 +18,6 @@ export default class Skin extends BaseModel {
   declare skinUuid: string
 
   @column()
-  declare displayName: string
-
-  @column()
   declare displayIcon: string
 
   @column()
@@ -24,6 +25,9 @@ export default class Skin extends BaseModel {
 
   @hasMany(() => Level)
   declare levels: HasMany<typeof Level>
+
+  @hasMany(() => Chroma)
+  declare chromas: HasMany<typeof Chroma>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
