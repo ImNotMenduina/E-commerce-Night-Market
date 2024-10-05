@@ -2,6 +2,7 @@ import Skin from '#models/skin'
 import Weapon from '#models/weapon'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
+import Bundle from '#models/bundle'
 
 export default class WeaponsController {
   async get_weapons({ view }: HttpContext) {
@@ -34,6 +35,9 @@ export default class WeaponsController {
   async get_skin({ params, view }: HttpContext) {
     const data = await Skin.findBy({ skinUuid: params.skinUuid })
 
+    const skin_name = data.displayName.split(' ')
+    const query_bundle = await Bundle.query().where('displayName', 'like', `%${skin_name[0]}%`)
+
     const query_skins = await db
       .from('skins')
       .join('chromas', (qr) => {
@@ -50,6 +54,6 @@ export default class WeaponsController {
       .select('chromas.id')
       .select('chromas.chroma_video')
 
-    return view.render('pages/weapons/skin', { data: query_skins })
+    return view.render('pages/weapons/skin', { data: query_skins, bundle: query_bundle })
   }
 }
