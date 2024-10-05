@@ -28,15 +28,11 @@
           <div class="flex flex-row justify-between w-40">
             @if(swatch)
               @each(skin in data)
-                <div
-                  data-chroma
-                  video="{{ skin.chroma_video }}"
-                  data-full
-                  render="{{ skin.full_render }}"
-                  onclick="chose_swatch('{{ skin.full_render }}', '{{ skin.chroma_video }}')"
-                  class="rounded-lg overflow-hidden"
-                >
-                  <img src="{{ skin.swatch }}" class="h-9 w-9" />
+                @let(chroma = JSON.stringify(skin))
+                <div class="chroma_wrapper" data-chroma="{{ chroma }}">
+                  <div class="rounded-lg overflow-hidden">
+                    <img src="{{ skin.swatch }}" class="h-9 w-9" />
+                  </div>
                 </div>
               @end
             @end
@@ -60,30 +56,5 @@
     </div>
   </div>
   @!footer()
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", event => {
-      const body = document.getElementById("skbody");
-      const bundle = JSON.parse(body.getAttribute("data-bundle"));
-      console.log(bundle);
-      if (bundle.length) {
-        body.classList.add(`bg-[url('${bundle[0].displayIcona}')]`);
-      } else {
-        body.classList.add("bg_default");
-      }
-    });
-    
-    function chose_swatch(swatch, chroma_video) {
-      const imgtest = document.getElementById("banner");
-      const iframechroma = document.getElementById("weapon_video");
-      imgtest.setAttribute("src", swatch);
-      if (chroma_video != "null") {
-        iframechroma.removeAttribute("hidden");
-        iframechroma.setAttribute("src", chroma_video);
-      } else {
-        iframechroma.setAttribute("hidden", true);
-        iframechroma.setAttribute("src", "");
-      }
-    }
-  </script>
 </body>
 </html>
