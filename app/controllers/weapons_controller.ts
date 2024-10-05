@@ -47,6 +47,7 @@ export default class WeaponsController {
       .select('skins.display_icon')
       .select('chromas.full_render')
       .select('chromas.swatch')
+      .select('chromas.id')
 
     const query_levels = await db
       .from('skins')
