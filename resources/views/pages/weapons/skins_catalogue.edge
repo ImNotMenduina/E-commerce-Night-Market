@@ -27,6 +27,14 @@
                   {{ item.displayName }}
                 </h2>
               </div>
+              <button>
+                <div
+                  @click="modalOpen=true"
+                  class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-white bg-opacity-5 lg:aspect-none group-hover:opacity-75 lg:h-56 p-8"
+                >
+                  <img src="{{ item.displayIcon }}" alt="{{ item.displayName }}" class=" object-contain object-center " />
+                </div>
+              </button>
               <div class="w-full">
                 <a href="{{ route('skin', [item.skinUuid]) }}">
                   <div
@@ -38,15 +46,6 @@
                   </div>
                 </a>
               </div>
-              <button>
-                <div
-                  @click="modalOpen=true"
-                  class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-white bg-opacity-5 lg:aspect-none group-hover:opacity-75 lg:h-56 p-8"
-                >
-                  <img src="{{ item.displayIcon }}" alt="{{ item.displayName }}" class=" object-contain object-center " />
-                </div>
-              </button>
-
               <template x-teleport="body">
                 <div
                   x-show="modalOpen"

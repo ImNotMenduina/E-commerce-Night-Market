@@ -48,6 +48,7 @@ export default class extends BaseSeeder {
               displayIcon: c.displayIcon,
               fullRender: c.fullRender,
               swatch: c.swatch,
+              chromaVideo: c.streamedVideo,
             })
           }
           for (const l of s.levels) {

@@ -17,6 +17,9 @@ export default class Chroma extends BaseModel {
   @column()
   declare swatch: string
 
+  @column()
+  declare chromaVideo: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

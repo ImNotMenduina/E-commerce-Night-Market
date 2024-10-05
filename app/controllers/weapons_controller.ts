@@ -28,7 +28,7 @@ export default class WeaponsController {
 
   async get_available_skins({ params, view }: HttpContext) {
     const data = await Skin.query().where('displayName', 'like', `%${params.category}%`)
-    return view.render('pages/weapons/skins', { data, name: params.category })
+    return view.render('pages/weapons/skins_catalogue', { data, name: params.category })
   }
 
   async get_skin({ params, view }: HttpContext) {
@@ -48,18 +48,8 @@ export default class WeaponsController {
       .select('chromas.full_render')
       .select('chromas.swatch')
       .select('chromas.id')
+      .select('chromas.chroma_video')
 
-    const query_levels = await db
-      .from('skins')
-      .join('levels', (qr) => {
-        qr.on('skins.display_name', '=', 'levels.display_name').andOnVal(
-          'levels.display_name',
-          '=',
-          `${data?.displayName}`
-        )
-      })
-      .select('levels.streamed_video')
-
-    return view.render('pages/weapons/skin', { data: query_skins, levels: query_levels })
+    return view.render('pages/weapons/skin', { data: query_skins })
   }
 }

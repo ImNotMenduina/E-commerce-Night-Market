@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('display_icon')
       table.string('full_render')
       table.string('swatch')
+      table.string('chroma_video')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
