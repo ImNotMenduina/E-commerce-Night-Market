@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  @!component('components/header')
+
+  @!nav()
+
+  <form action="{{ route('signin') }}" method="post">
+    <div>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" />
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="text" id="password" name="password" />
+    </div>
+    <input type="submit" value="Submit" />
+  </form>
+
+  @!footer()

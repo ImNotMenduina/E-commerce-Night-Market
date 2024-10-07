@@ -24,11 +24,13 @@ router
   .prefix('/weapon')
 
 router
+
   .group(() => {
-    router.post('/submit', [UsersController, 'store']).as('store')
+    router.post('/', [UsersController, 'create']).as('create')
     router.post('/signin', [UsersController, 'signin']).as('signin')
     router.post('/logout', [UsersController, 'logout']).as('logout').use(middleware.auth())
-    router.get('/form', [UsersController, 'register']).as('register')
+    router.get('/login', [UsersController, 'login']).as('login')
+    router.get('/signup', [UsersController, 'signup']).as('signup')
     router.get('/dashboard', [UsersController, 'dashboard']).as('dashboard').use(middleware.auth())
   })
   .prefix('users')

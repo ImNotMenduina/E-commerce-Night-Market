@@ -2,18 +2,22 @@ import User from '#models/user'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class UsersController {
-  async store({ view, request, response }: HttpContext) {
+  async create({ request, response }: HttpContext) {
     const { name, email, password } = request.only(['name', 'email', 'password'])
     await User.create({
       fullName: name,
       email: email,
       password: password,
     })
-    return response.redirect().toRoute('dashboard')
+    return response.redirect().toRoute('login')
   }
 
-  async register({ view }: HttpContext) {
-    return view.render('pages/users/form')
+  async signup({ view }: HttpContext) {
+    return view.render('pages/users/signup')
+  }
+
+  async login({ view }: HttpContext) {
+    return view.render('pages/users/signin')
   }
 
   async signin({ request, response, auth }: HttpContext) {
@@ -29,7 +33,7 @@ export default class UsersController {
     return response.redirect().toRoute('home')
   }
 
-  async dashboard({ view, response, auth }: HttpContext) {
+  async dashboard({ view, auth }: HttpContext) {
     await auth.authenticate()
     return view.render('pages/users/dashboard')
   }
