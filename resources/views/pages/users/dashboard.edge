@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  @!component('components/header')
+
+  @!nav()
+
+  <div>
+    <div>
+      <p>
+        {{ auth.user.fullName }}
+      </p>
+      <p>
+        {{ auth.user.email }}
+      </p>
+
+      <form method="post" action="{{ route('logout') }}" class="inline">
+        <input type="hidden" name="extra_submit_param" value="extra_submit_value" />
+        <button type="submit" name="submit_param" value="submit_value" class="link-button">
+          This is a link that sends a POST request
+        </button>
+      </form>
+    </div>
+  </div>
+
+  @!footer()
