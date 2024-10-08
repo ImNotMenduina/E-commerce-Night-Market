@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <p>foi</p>
-    @each(bundle in bundles)
-        <div>
-            <h3>{{bundle.displayName}}</h3>
-            <img src="{{bundle.displayIcon}}" alt="">
-        </div>
-    @end
-</body>
-</html>
+@layout.app()
+  <p>
+    foi
+  </p>
+  @each(bundle in bundles)
+    <div>
+      <h3>
+        {{ bundle.displayName }}
+      </h3>
+      <img src="{{ bundle.displayIcon }}" alt="" />
+    </div>
+  @end
+@end

@@ -1,28 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  @!component('components/header')
+@layout.app()
+  @!component('components/nav')
+  {{--  get all weapons categories  --}}
+  @!slider({data: data})
+  @!component('components/weapon/skin_advisor', {skinsAdvisor})
+  @!footer()
+@end
 
-  <body class="min-h-screen w-screen font-sans bg-black">
-
-    @!component('components/nav')
-
-    {{--  get all weapons categories  --}}
-    @!slider({data: data})
-
-    @!component('components/weapon/skin_advisor', {skinsAdvisor})
-
-    @!footer()
-
-    <script>
-      // Initialization for ES Users
-      import {
-        Carousel,
-        initTWE
-      } from "tw-elements";
-      
-      initTWE({
-        Carousel: Carousel
-      });
-    </script>
-  </body>
-</html>
