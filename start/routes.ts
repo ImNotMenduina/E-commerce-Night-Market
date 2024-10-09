@@ -27,8 +27,8 @@ router
   .group(() => {
     router.post('/signup', [UsersController, 'create']).as('user.create')
     router.get('/find/:email', [UsersController, 'read']).as('user.read')
-    //router.patch('/edit', []).as('user.update')
-    //router.delete('/remove', []).as('user.delete')
+    router.patch('/edit', [UsersController, 'update']).as('user.update')
+    router.delete('/remove', [UsersController, 'destroy']).as('user.destroy')
   })
   .prefix('/user')
 
