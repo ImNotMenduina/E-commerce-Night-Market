@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 
+const SessionsController = () => import('#controllers/session_controller')
 const UsersController = () => import('#controllers/users_controller')
 const WeaponsController = () => import('#controllers/weapons_controller')
 //const BundlesController = () => import('#controllers/bundles_controller')
@@ -33,5 +34,12 @@ router
     router.get('/signup', [UsersController, 'signup']).as('user.signup')
   })
   .prefix('/user')
+
+router
+  .group(() => {
+    router.post('/login', [SessionsController, 'store']).as('session.login')
+    router.post('/logout', [SessionsController, 'logout']).as('session.logout')
+  })
+  .prefix('session')
 
 //router.get('/bundles', [BundlesController, 'get_available_bundles']).as('bundles')
