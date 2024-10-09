@@ -32,6 +32,7 @@ router
     router.delete('/remove', [UsersController, 'destroy']).as('user.destroy')
 
     router.get('/signup', [UsersController, 'signup']).as('user.signup')
+    router.get('/signin', [UsersController, 'signin']).as('user.signin')
   })
   .prefix('/user')
 

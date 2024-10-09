@@ -37,10 +37,14 @@ export default class UsersController {
       return response.status(404).send({ message: 'User not found' })
     }
     await user.delete()
-    return response.status(200).send({ message: 'User deleted successfully' })
+    return response.redirect().toRoute('home')
   }
 
   async signup({ view }: HttpContext) {
     return view.render('pages/signup')
+  }
+
+  async signin({ view }: HttpContext) {
+    return view.render('pages/signin')
   }
 }

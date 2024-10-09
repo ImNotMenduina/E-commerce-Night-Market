@@ -6,11 +6,11 @@ export default class SessionController {
     const { email, password } = request.only(['email', 'password'])
     const user = await User.verifyCredentials(email, password)
     await auth.use('web').login(user)
-    response.redirect().toRoute('home')
+    response.status(200).send(user)
   }
 
   async logout({ auth, response }: HttpContext) {
     await auth.use('web').logout()
-    return response.redirect().toRoute('home')
+    return response.status(200).send({ message: 'deslogado' })
   }
 }
