@@ -6,7 +6,7 @@ export default class UsersController {
   async create({ request, response }: HttpContext) {
     const { name, email, password } = request.only(['name', 'email', 'password'])
     await User.create({ fullName: name, email, password })
-    return response.status(201).send({ message: 'User created successfully' })
+    return response.redirect().toRoute('home')
   }
 
   async read({ params, response }: HttpContext) {
@@ -38,5 +38,9 @@ export default class UsersController {
     }
     await user.delete()
     return response.status(200).send({ message: 'User deleted successfully' })
+  }
+
+  async signup({ view }: HttpContext) {
+    return view.render('pages/signup')
   }
 }

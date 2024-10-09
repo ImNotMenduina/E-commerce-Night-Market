@@ -29,6 +29,8 @@ router
     router.get('/find/:email', [UsersController, 'read']).as('user.read')
     router.patch('/edit', [UsersController, 'update']).as('user.update')
     router.delete('/remove', [UsersController, 'destroy']).as('user.destroy')
+
+    router.get('/signup', [UsersController, 'signup']).as('user.signup')
   })
   .prefix('/user')
 
