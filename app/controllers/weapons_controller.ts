@@ -54,6 +54,12 @@ export default class WeaponsController {
       .select('chromas.id')
       .select('chromas.chroma_video')
 
-    return view.render('pages/weapons/skin', { data: query_skins, bundle: query_bundle })
+    let bgImage = ''
+    if (query_bundle.length) {
+      const objRand = Math.floor(Math.random() * query_bundle.length)
+      bgImage = query_bundle[objRand].displayIcona
+    }
+
+    return view.render('pages/weapons/skin', { data: query_skins, bgImage })
   }
 }

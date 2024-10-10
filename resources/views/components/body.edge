@@ -1,0 +1,10 @@
+@let(attributes = $props
+  .merge({
+    class: ['bg-black', 'bg-no-repeat', 'bg-center']
+  })
+  .toAttrs()
+)
+
+<body {{ attributes }}>
+  {{{ await $slots.main() }}}
+</body>

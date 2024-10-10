@@ -1,8 +1,10 @@
 @layout.app()
-  @!component('components/nav')
-  {{--  get all weapons categories  --}}
-  @!slider({data: data})
-  @!component('components/weapon/skin_advisor', {skinsAdvisor})
-  @!footer()
+  @body()
+    @!component('components/nav')
+    {{--  get all weapons categories  --}}
+    @!slider({data: data})
+    @!component('components/weapon/skin_advisor', {skinsAdvisor})
+    @!footer()
+  @end
 @end
 
