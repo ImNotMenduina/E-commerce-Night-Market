@@ -1,6 +1,7 @@
 @layout.app()
   @body()
-    @!component('components/nav')
+    @eval(await auth.check())
+    @!nav()
     {{--  get all weapons categories  --}}
     @!slider({data: data})
     @!component('components/weapon/skin_advisor', {skinsAdvisor})
