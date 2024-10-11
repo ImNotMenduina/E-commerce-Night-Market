@@ -19,96 +19,120 @@
   })
     @eval(await auth.check())
     @!nav()
-    <div class="flex flex-col justify-center items-center w-full bg-black bg-opacity-70 p-8">
-      <div class="h-64 flex flex-row rounded-r-lg overflow-hidden">
-        <div class="flex flex-col w-32">
-          @each(skin in data)
-            @if(swatch && skin.chroma_video)
-            <div class="[&_[x-cloak]]:hidden p-5 bg-black hover:bg-opacity-75" x-data="{ modalOpen: false }">
-              <!-- Video thumbnail -->
-              <button
-                  class="relative flex justify-center items-center focus:outline-none focus-visible:ring focus-visible:ring-indigo-300 rounded-3xl group "
-                  @click="modalOpen = true"
-                  aria-controls="modal"
-                  aria-label="Watch the video"
-              >
-                  <img class="rounded-3xl shadow-2xl transition-shadow duration-300 ease-in-out object-contain object-center h-12" src="{{skin.full_render}}" alt="Modal video thumbnail" />
-                  <!-- Play icon -->
-                  
-              </button>
-              <!-- End: Video thumbnail -->
-          
-              <!-- Modal backdrop -->
-              <div
-                  class="fixed inset-0 z-[99999] bg-black bg-opacity-50 transition-opacity"
-                  x-show="modalOpen"
-                  x-transition:enter="transition ease-out duration-200"
-                  x-transition:enter-start="opacity-0"
-                  x-transition:enter-end="opacity-100"
-                  x-transition:leave="transition ease-out duration-100"
-                  x-transition:leave-start="opacity-100"
-                  x-transition:leave-end="opacity-0" 
-                  aria-hidden="true"
-                  x-cloak
-              ></div>
-              <!-- End: Modal backdrop -->
-          
-              <!-- Modal dialog -->
-              <div
-                  id="modal"
-                  class="fixed inset-0 z-[99999] flex p-6"
-                  role="dialog"
-                  aria-modal="true"
-                  x-show="modalOpen"
-                  x-transition:enter="transition ease-out duration-300"
-                  x-transition:enter-start="opacity-0 scale-75"
-                  x-transition:enter-end="opacity-100 scale-100"
-                  x-transition:leave="transition ease-out duration-200"
-                  x-transition:leave-start="opacity-100 scale-100"
-                  x-transition:leave-end="opacity-0 scale-75"
-                  x-cloak
-              >
-                <div class="max-w-5xl mx-auto h-full flex items-center">
-                  <div
-                      class="w-full max-h-full rounded-3xl shadow-2xl aspect-video bg-black overflow-hidden"
-                      @click.outside="modalOpen = false"
-                      @keydown.escape.window="modalOpen = false"
-                  >
-                    <video x-init="$watch('modalOpen', value => value ? $el.play() : $el.pause())" width="1920" height="1080" loop controls>
-                        <source  id="weapon_video" src="{{skin.chroma_video}}" type="video/mp4" />
-                    </video>
-                  </div>
-                </div>
-              </div>
-              <!-- End: Modal dialog -->
+    <div
+      x-data="{  chroma_video: '{{ data[0].chroma_video }}', 
+                    full_render: '{{ full_render }}' 
+                  }"
+      class="flex flex-col justify-center items-center bg-black bg-opacity-85 p-8 h-full"
+    >
+      <div class="flex flex-col justify-center items-start">
+        <div class="h-64 flex flex-row">
+          <div
+            class="flex flex-row items-center justify-evenly w-full h-full bg-black bg-opacity-75 p-5"
+            style="width: 560px;"
+          >
+            <div class="flex justify-center w-4/5">
+              <img id="banner" :src="full_render" src="" class="object-contain object-center h-40" />
             </div>
-            @end
-          @end
-        </div>
-        <div
-          class="flex flex-row items-center justify-evenly w-full h-full bg-black bg-opacity-75 p-5"
-          style="width: 560px;"
-        >
-          <div class="flex justify-center w-4/5">
-            <img id="banner" src="{{ full_render }}" class="object-contain object-center h-40" />
-          </div>
-          @if(swatch)
-          <div class="flex flex-col justify-start h-full w-9">
-            @each(skin in data)
-              @let(chroma = JSON.stringify(skin))
-              <div class="chroma_wrapper mb-4 hover:opacity-60 cursor-pointer" data-chroma="{{ chroma }}">
-                <div class="overflow-hidden rounded-sm">
-                  <img src="{{ skin.swatch }}" class="object-cover" />
-                </div>
+            @if(swatch)
+              <div class="flex flex-col justify-start h-full w-9">
+                @each(skin in data)
+                  @let(chroma = JSON.stringify(skin))
+                  <div
+                    @click="chroma_video = '{{ skin.chroma_video }}'; full_render = '{{ skin.full_render }}'"
+                    class="chroma_wrapper mb-4 hover:opacity-60 cursor-pointer"
+                  >
+                    <div class="overflow-hidden rounded-sm">
+                      <img src="{{ skin.swatch }}" class="object-cover" />
+                    </div>
+                  </div>
+                @end
               </div>
             @end
           </div>
-          @end
+          <div
+            class="bg-white flex flex-row justify-start items-center h-full p-3 rounded-r-lg"
+            style="writing-mode:vertical-rl"
+          >
+            <h2 class="text-red-600 text-base" style="font-family: 'VALORANT', sans-serif">
+              {{ display_name }}
+            </h2>
+          </div>
         </div>
-        <div class="bg-white flex flex-row justify-start items-center h-full p-3" style="writing-mode:vertical-rl">
-          <h2 class="text-red-600 text-base" style="font-family: 'VALORANT', sans-serif">
-            {{ display_name }}
-          </h2>
+        <div x-show="chroma_video != 'null'" class="flex flex-col justify-end w-36">
+          <div
+            class="[&_[x-cloak]]:hidden p-5 bg-black hover:bg-white hover:bg-opacity-75 rounded-b-lg"
+            x-data="{ modalOpen: false }"
+          >
+            <!-- Video thumbnail -->
+            <button
+              class="relative flex justify-center items-center hover:-translate-x-2 hover:scale-110 duration-700 "
+              @click="modalOpen = true"
+              aria-controls="modal"
+              aria-label="Watch the video"
+            >
+              <img
+                class="rounded-3xl shadow-2xl object-contain object-center h-14"
+                :src="full_render"
+                alt="Modal video thumbnail"
+              />
+              <!-- Play icon -->
+
+            </button>
+            <!-- End: Video thumbnail -->
+
+            <!-- Modal backdrop -->
+            <div
+              class="fixed inset-0 z-[99999] bg-black bg-opacity-50 transition-opacity"
+              x-show="modalOpen"
+              x-transition:enter="transition ease-out duration-200"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="transition ease-out duration-100"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0"
+              aria-hidden="true"
+              x-cloak
+            >
+            </div>
+            <!-- End: Modal backdrop -->
+
+            <!-- Modal dialog -->
+            <div
+              id="modal"
+              class="fixed inset-0 z-[99999] flex p-6"
+              role="dialog"
+              aria-modal="true"
+              x-show="modalOpen"
+              x-transition:enter="transition ease-out duration-300"
+              x-transition:enter-start="opacity-0 scale-75"
+              x-transition:enter-end="opacity-100 scale-100"
+              x-transition:leave="transition ease-out duration-200"
+              x-transition:leave-start="opacity-100 scale-100"
+              x-transition:leave-end="opacity-0 scale-75"
+              x-cloak
+            >
+              <div class="max-w-5xl mx-auto h-full flex items-center">
+                <div
+                  class="w-full max-h-full rounded-3xl shadow-2xl aspect-video bg-black overflow-hidden"
+                  @click.outside="modalOpen = false"
+                  @keydown.escape.window="modalOpen = false"
+                >
+                  <video
+                    x-init="$watch('modalOpen', value => value ? $el.play() : $el.pause())"
+                    width="1920"
+                    height="1080"
+                    loop
+                    controls
+                    x-bind:src="chroma_video == 'null'? '' : chroma_video"
+                    src=""
+                  >
+                  </video>
+                </div>
+              </div>
+            </div>
+            <!-- End: Modal dialog -->
+          </div>
         </div>
       </div>
     </div>

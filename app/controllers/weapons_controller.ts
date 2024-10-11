@@ -36,6 +36,7 @@ export default class WeaponsController {
     const data = await Skin.findBy({ skinUuid: params.skinUuid })
 
     const skin_name = data.displayName.split(' ')
+
     const query_bundle = await Bundle.query().where('displayName', 'like', `%${skin_name[0]}%`)
 
     const query_skins = await db
