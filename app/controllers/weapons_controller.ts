@@ -9,22 +9,7 @@ export default class WeaponsController {
     const data = await Weapon.all()
     const skinsData = await Skin.all()
 
-    // generate rondom keys for skin advisor
-    async function generateRandomAdvisor(skins) {
-      const randomKeys = Array.from({ length: 4 }, () => Math.floor(Math.random() * skins.length))
-      const skinsAd = []
-
-      for (const key of randomKeys) {
-        const skin = await Skin.find(key)
-        skinsAd.push(skin)
-      }
-
-      return skinsAd
-    }
-
-    const skinsAdvisor = await generateRandomAdvisor(skinsData)
-
-    return view.render('pages/home', { data, skinsAdvisor })
+    return view.render('pages/home', { data })
   }
 
   async get_available_skins({ params, view }: HttpContext) {

@@ -1,10 +1,17 @@
 @layout.app()
-  @body()
+  @body({
+    class:['bg-default']
+  })
     @eval(await auth.check())
     @!nav()
     {{--  get all weapons categories  --}}
-    @!slider({data: data})
-    @!component('components/weapon/skin_advisor', {skinsAdvisor})
+    <div class="grid grid-cols-4 gap-4 p-36">
+      @each(weapon in data)
+        <a href="{{ route('category', [weapon.displayName]) }}">
+          @!component('components/weapon/card', { full_render: weapon.shopImage, display_name: weapon.displayName })
+        </a>
+      @end
+    </div>
     @!footer()
   @end
 @end
