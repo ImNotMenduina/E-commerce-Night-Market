@@ -1,6 +1,6 @@
-<div class="h-64 flex flex-row">
+<div class="h-48 flex flex-row">
   <div
-    class="flex flex-row items-center justify-evenly w-full h-full bg-black bg-opacity-85 p-5"
+    class="flex flex-row items-center justify-evenly w-full h-full bg-black bg-opacity-85"
     style="width: 560px;"
   >
     {{-- full render weapon image --}}
@@ -13,8 +13,19 @@
     class="bg-white flex flex-row justify-start items-center h-full p-3 rounded-r-lg"
     style="writing-mode:vertical-rl"
   >
-    <h2 class="text-red-600 text-base" style="font-family: 'VALORANT', sans-serif">
-      {{ display_name }}
-    </h2>
+    <p 
+      x-init="
+      let n = `{{display_name}}`
+      let words = n.split(' ')
+      if(words.length > 1) {
+        words.pop()
+        words = words.join(' ')
+        $el.innerHTML = words
+      }  else {
+        $el.innerHTML = words
+      }
+      "
+      class="text-red-600 font-bold  text-sm " style="font-family: 'VALORANT', sans-serif">
+    </p>
   </div>
 </div>
