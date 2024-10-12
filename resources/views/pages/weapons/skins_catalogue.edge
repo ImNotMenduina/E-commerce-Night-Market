@@ -6,8 +6,8 @@
     @!nav()
     <div class="grid grid-cols-3 gap-4 p-28">
       @each(skin in data)
-        <a href="{{ route('skin', [skin.skinUuid]) }}">
-          @!component('components/weapon/card', { full_render: skin.displayIcon, display_name: skin.displayName })
+        <a href="{{ route('skin', [skin.uuid]) }}">
+          @!component('components/weapon/card', { full_render: skin.display_icon, display_name: skin.display_name })
         </a>
       @end
     </div>
