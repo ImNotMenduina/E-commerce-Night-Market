@@ -5,12 +5,13 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').primary()
-      table.string('display_name').primary()
-      table.integer('weapon_id').references('id').inTable('weapons').onDelete('CASCADE')
-      table.string('skin_uuid')
+      table.string('uuid').primary()
+      table.string('display_name')
       table.string('display_icon')
       table.string('theme_uuid')
+      table.string('content_tier_uuid')
+      table.string('wallpaper')
+      table.string('uuid_weapon')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

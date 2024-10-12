@@ -3,13 +3,19 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class Level extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  declare uuid: string
 
   @column()
-  declare displayName: string
+  declare levelName: string
 
   @column()
-  declare streamedVideo: string
+  declare levelVideo: string
+
+  @column()
+  declare levelItem: string
+
+  @column()
+  declare uuidSkin: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

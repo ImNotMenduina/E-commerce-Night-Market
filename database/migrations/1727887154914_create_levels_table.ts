@@ -5,9 +5,11 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      table.string('streamed_video')
-      table.string('display_name')
+      table.string('uuid').primary()
+      table.string('level_name')
+      table.string('level_video')
+      table.string('level_item')
+      table.string('uuid_skin')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

@@ -3,7 +3,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class Chroma extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  declare uuid: string
 
   @column()
   declare displayName: string
@@ -19,6 +19,9 @@ export default class Chroma extends BaseModel {
 
   @column()
   declare chromaVideo: string
+
+  @column()
+  declare uuidSkin: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
