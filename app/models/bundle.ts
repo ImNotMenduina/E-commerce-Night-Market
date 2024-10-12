@@ -3,9 +3,6 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class Bundle extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
-
-  @column()
   declare uuid: string
 
   @column()
@@ -18,7 +15,7 @@ export default class Bundle extends BaseModel {
   declare displayIconb: string
 
   @column()
-  declare verticalPromo: string
+  declare verticalPromoImage: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

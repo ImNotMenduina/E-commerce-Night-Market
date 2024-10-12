@@ -1,3 +1,4 @@
+import Bundle from '#models/bundle'
 import Skin from '#models/skin'
 import Weapon from '#models/weapon'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
@@ -8,6 +9,7 @@ export default class extends BaseSeeder {
     const { data } = await response.json()
 
     const weapons = await Weapon.all()
+    const bundles = await Bundle.all()
 
     const skins = data.map((s) => {
       const words = s.displayName.split(' ')
@@ -17,7 +19,16 @@ export default class extends BaseSeeder {
         for (const w of weapons) {
           if (name === w.displayName) return w.uuid
         }
-        return -1
+        return null
+      }
+
+      function findBundleUuid(name) {
+        for (const b of bundles) {
+          if (name.includes(b.displayName)) {
+            return b.uuid
+          }
+        }
+        return null
       }
 
       return {
@@ -28,6 +39,7 @@ export default class extends BaseSeeder {
         contentTierUuid: s.contentTierUuid,
         wallpaper: s.wallpaper,
         uuidWeapon: findWeaponUuid(category),
+        uuidBundle: findBundleUuid(s.displayName),
       }
     })
     //preprossing:

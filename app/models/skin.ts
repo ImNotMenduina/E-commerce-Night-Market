@@ -23,6 +23,9 @@ export default class Skin extends BaseModel {
   @column()
   declare uuidWeapon: string
 
+  @column()
+  declare uuidBundle: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

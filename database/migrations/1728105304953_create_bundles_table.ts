@@ -5,12 +5,11 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
-      table.string('uuid')
+      table.string('uuid').primary()
       table.string('display_name')
       table.string('display_icona')
       table.string('display_iconb')
-      table.string('vertical_promo')
+      table.string('vertical_promo_image')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

@@ -1,7 +1,4 @@
 //import Skin from '#models/skin'
-import Chroma from '#models/chroma'
-import Skin from '#models/skin'
-import Level from '#models/level'
 import Weapon from '#models/weapon'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 

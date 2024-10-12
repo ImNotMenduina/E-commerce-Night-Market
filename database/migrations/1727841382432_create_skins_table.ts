@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.string('content_tier_uuid')
       table.string('wallpaper')
       table.string('uuid_weapon')
+      table.string('uuid_bundle')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
