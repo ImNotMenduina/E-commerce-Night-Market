@@ -5,7 +5,7 @@
   >
     {{-- full render weapon image --}}
     <div class="flex justify-center w-4/5">
-      <img id="banner" src="{{ full_render }}" class="object-contain object-center h-40" />
+      <img id="banner" src="{{ full_render }}" class="object-contain object-center h-32" />
     </div>
     {{-- skin chromas --}}
   </div>
@@ -13,9 +13,9 @@
     class="bg-white flex flex-row justify-start items-center h-full p-3 rounded-r-lg"
     style="writing-mode:vertical-rl"
   >
-    <p 
+    <p
       x-init="
-      let n = `{{display_name}}`
+      let n = `{{ display_name }}`
       let words = n.split(' ')
       if(words.length > 1) {
         words.pop()
@@ -25,7 +25,9 @@
         $el.innerHTML = words
       }
       "
-      class="text-red-600 font-bold  text-sm " style="font-family: 'VALORANT', sans-serif">
+      class="text-red-600 font-bold  text-sm "
+      style="font-family: 'VALORANT', sans-serif"
+    >
     </p>
   </div>
 </div>

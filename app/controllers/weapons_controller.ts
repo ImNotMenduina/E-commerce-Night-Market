@@ -1,8 +1,6 @@
-import Skin from '#models/skin'
 import Weapon from '#models/weapon'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
-import Bundle from '#models/bundle'
 
 export default class WeaponsController {
   async get_weapons({ view }: HttpContext) {
@@ -24,15 +22,21 @@ export default class WeaponsController {
       .where('skins.uuid', params.uuid)
       .join('chromas', 'chromas.uuid_skin', '=', 'skins.uuid')
 
-    const skin_name = skin_chromas[0].display_name.split(' ')
-    const query_bundle = await Bundle.query().where('displayName', 'like', `%${skin_name}%`)
+    const skin_levels = await db
+      .from('skins')
+      .where('skins.uuid', params.uuid)
+      .join('levels', 'levels.uuid_skin', '=', 'skins.uuid')
 
-    let bgImage = ''
-    if (query_bundle.length) {
-      const objRand = Math.floor(Math.random() * query_bundle.length)
-      bgImage = query_bundle[objRand].displayIcona
-    }
+    const skin_bundle = await db
+      .from('skins')
+      .where('skins.uuid', params.uuid)
+      .join('bundles', 'bundles.uuid', '=', 'skins.uuid_bundle')
 
-    return view.render('pages/weapons/skin', { data: skin_chromas, bgImage })
+    return view.render('pages/weapons/skin', {
+      chromas: skin_chromas,
+      levels: skin_levels,
+      bundle: skin_bundle,
+      bgImage: skin_bundle.length ? skin_bundle[0].display_icona : '',
+    })
   }
 }

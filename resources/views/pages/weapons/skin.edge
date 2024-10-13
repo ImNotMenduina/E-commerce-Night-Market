@@ -1,10 +1,10 @@
 @layout.app()
-  @let({display_name} = data[0])
-  @let({swatch} = data[0])
-  @let({full_render} = data[0])
+  @let({display_name} = chromas[0])
+  @let({swatch} = chromas[0])
+  @let({full_render} = chromas[0])
 
   @let(img = '')
-  @if (bgImage.length)
+  @if (bgImage)
     @assign(img = `bg-[url('${bgImage}')]`)
   @else
     @assign(img = 'bg-default')
@@ -20,7 +20,7 @@
     @eval(await auth.check())
     @!nav()
     <div
-      x-data="{  chroma_video: '{{ data[0].chroma_video }}', 
+      x-data="{  chroma_video: '{{ chromas[0].chroma_video }}', 
                     full_render: '{{ full_render }}' 
                   }"
       class="flex flex-col justify-center items-center bg-black bg-opacity-80 p-8 h-full"
@@ -37,8 +37,7 @@
           {{-- skin chromas --}}
           @if(swatch)
             <div class="flex flex-col justify-start h-full w-9 ml-5">
-              @each(skin in data)
-                @let(chroma = JSON.stringify(skin))
+              @each(skin in chromas)
                 <div
                   @click="chroma_video = '{{ skin.chroma_video }}'; full_render = '{{ skin.full_render }}'"
                   class="chroma_wrapper mb-4 hover:opacity-60 cursor-pointer"
