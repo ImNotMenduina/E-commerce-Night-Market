@@ -11,12 +11,18 @@ export default class WeaponsController {
   async get_available_skins({ params, view }: HttpContext) {
     const data = await db
       .from('weapons')
-      .where('weapons.display_name', params.category)
+      .where('weapons.weapon_name', params.category)
       .join('skins', 'skins.uuid_weapon', '=', 'weapons.uuid')
     return view.render('pages/weapons/skins_catalogue', { data, name: params.category })
   }
 
   async get_skin({ params, view }: HttpContext) {
+    const skin = await db
+      .from('skins')
+      .where('skins.uuid', params.uuid)
+      .join('themes', 'themes.uuid', '=', 'skins.theme_uuid')
+      .join('weapons', 'weapons.uuid', '=', 'skins.uuid_weapon')
+
     const skin_chromas = await db
       .from('skins')
       .where('skins.uuid', params.uuid)
@@ -33,6 +39,7 @@ export default class WeaponsController {
       .join('bundles', 'bundles.uuid', '=', 'skins.uuid_bundle')
 
     return view.render('pages/weapons/skin', {
+      skin,
       chromas: skin_chromas,
       levels: skin_levels,
       bundle: skin_bundle,

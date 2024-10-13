@@ -6,7 +6,7 @@ export default class Skin extends BaseModel {
   declare uuid: string
 
   @column()
-  declare displayName: string
+  declare skinName: string
 
   @column()
   declare displayIcon: string

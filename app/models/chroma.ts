@@ -6,7 +6,7 @@ export default class Chroma extends BaseModel {
   declare uuid: string
 
   @column()
-  declare displayName: string
+  declare chromaName: string
 
   @column()
   declare displayIcon: string

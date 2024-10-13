@@ -11,7 +11,7 @@ export default class Weapon extends BaseModel {
 
   // weapon name
   @column()
-  declare displayName: string
+  declare weaponName: string
 
   @column()
   declare shopImage: string

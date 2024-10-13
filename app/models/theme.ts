@@ -1,21 +1,15 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
-export default class Bundle extends BaseModel {
+export default class Theme extends BaseModel {
   @column({ isPrimary: true })
   declare uuid: string
 
   @column()
-  declare bundleName: string
+  declare themeName: string
 
   @column()
-  declare displayIcona: string
-
-  @column()
-  declare displayIconb: string
-
-  @column()
-  declare verticalPromoImage: string
+  declare displayIcon: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
