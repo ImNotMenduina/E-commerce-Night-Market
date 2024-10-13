@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.string('uuid').primary()
-      table.string('display_name')
+      table.string('skin_name')
       table.string('display_icon')
       table.string('theme_uuid')
       table.string('content_tier_uuid')

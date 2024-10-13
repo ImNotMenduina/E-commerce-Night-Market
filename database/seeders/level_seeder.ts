@@ -11,7 +11,7 @@ export default class extends BaseSeeder {
 
     function findSkinUuid(name) {
       for (const s of skins) {
-        if (name.includes(s.displayName)) {
+        if (name.includes(s.skinName)) {
           return s.uuid
         }
       }

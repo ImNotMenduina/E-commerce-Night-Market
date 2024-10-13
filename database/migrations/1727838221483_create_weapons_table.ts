@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.string('uuid').primary()
       table.string('display_icon')
-      table.string('display_name')
+      table.string('weapon_name')
       table.string('shop_image')
 
       table.timestamp('created_at')

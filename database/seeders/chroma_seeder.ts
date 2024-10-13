@@ -11,17 +11,17 @@ export default class extends BaseSeeder {
 
     function findSkinUuid(name) {
       for (const s of skins) {
-        if (name.includes(s.displayName)) {
+        if (name.includes(s.skinName)) {
           return s.uuid
         }
       }
-      return -1
+      return null
     }
 
     const chromas = data.map((c) => {
       return {
         uuid: c.uuid,
-        displayName: c.displayName,
+        chromaName: c.displayName,
         displayIcon: c.displayIcon,
         fullRender: c.fullRender,
         swatch: c.swatch,

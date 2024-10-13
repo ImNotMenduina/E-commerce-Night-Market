@@ -23,5 +23,6 @@ export default class IndexSeeder extends BaseSeeder {
     await this.seed(await import('#database/seeders/skin_seeder'))
     await this.seed(await import('#database/seeders/chroma_seeder'))
     await this.seed(await import('#database/seeders/level_seeder'))
+    await this.seed(await import('#database/seeders/theme_seeder'))
   }
 }

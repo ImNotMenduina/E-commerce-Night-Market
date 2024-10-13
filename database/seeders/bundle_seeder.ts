@@ -9,7 +9,7 @@ export default class extends BaseSeeder {
     const bundles = data.map((b) => {
       return {
         uuid: b.uuid,
-        displayName: b.displayName,
+        bundleName: b.displayName,
         displayIcona: b.displayIcon,
         displayIconb: b.displayIcon2,
         verticalPromoImage: b.verticalPromoImage,

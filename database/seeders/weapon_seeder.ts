@@ -12,7 +12,7 @@ export default class extends BaseSeeder {
         return {
           uuid: w.uuid,
           displayIcon: w.displayIcon,
-          displayName: w.displayName,
+          weaponName: w.displayName,
           shopImage: w.shopData != null ? w.shopData.newImage : null,
         }
       })
