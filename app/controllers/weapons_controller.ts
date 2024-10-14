@@ -39,8 +39,11 @@ export default class WeaponsController {
       .where('skins.uuid', params.uuid)
       .join('bundles', 'bundles.uuid', '=', 'skins.uuid_bundle')
 
+    const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS')
+
     return view.render('pages/weapons/skin', {
       skin,
+      currency,
       chromas: skin_chromas,
       levels: skin_levels,
       bundle: skin_bundle,
