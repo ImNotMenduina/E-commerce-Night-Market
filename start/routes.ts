@@ -33,6 +33,11 @@ router
 
     router.get('/signup', [UsersController, 'signup']).as('user.signup')
     router.get('/signin', [UsersController, 'signin']).as('user.signin')
+
+    router.post('/favorite/like/:skinUuid/:email', [UsersController, 'like']).as('user.like')
+    router
+      .post('/favorite/dislike/:skinUuid/:email', [UsersController, 'dislike'])
+      .as('user.dislike')
   })
   .prefix('/user')
 

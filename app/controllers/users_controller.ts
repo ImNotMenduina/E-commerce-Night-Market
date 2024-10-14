@@ -1,6 +1,7 @@
 import User from '#models/user'
+import UserFavorite from '#models/user_favorite'
 import type { HttpContext } from '@adonisjs/core/http'
-import { messages } from '@vinejs/vine/defaults'
+import db from '@adonisjs/lucid/services/db'
 
 export default class UsersController {
   async create({ request, response }: HttpContext) {
@@ -46,5 +47,20 @@ export default class UsersController {
 
   async signin({ view }: HttpContext) {
     return view.render('pages/signin')
+  }
+
+  async like({ params }: HttpContext) {
+    await UserFavorite.create({
+      emailUser: params.email,
+      uuidSkin: params.skinUuid,
+    })
+  }
+
+  async dislike({ params }: HttpContext) {
+    await db
+      .from('user_favorites')
+      .where('uuid_skin', params.skinUuid)
+      .where('email_user', params.email)
+      .delete()
   }
 }
