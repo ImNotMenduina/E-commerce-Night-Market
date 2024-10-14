@@ -22,6 +22,7 @@ export default class WeaponsController {
       .where('skins.uuid', params.uuid)
       .join('themes', 'themes.uuid', '=', 'skins.theme_uuid')
       .join('weapons', 'weapons.uuid', '=', 'skins.uuid_weapon')
+      .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
 
     const skin_chromas = await db
       .from('skins')

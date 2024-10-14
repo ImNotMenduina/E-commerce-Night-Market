@@ -31,13 +31,18 @@
           {{-- Skin card --}}
           {{-- Skin name --}}
           <div
-            class="bg-gradient-to-r from-violet-500 to-fuchsia-500 flex flex-row justify-start items-center p-2 rounded-t-lg"
+            class="bg-gradient-to-r from-violet-500 to-fuchsia-500 flex flex-row justify-between items-center p-2 rounded-t-lg"
           >
-            <p class="text-white text-lg font-bold" style="font-family: 'VALORANT', sans-serif">
-              {{ theme_name }}
-            </p>
+            <div>
+              <p class="text-white text-lg font-bold" style="font-family: 'VALORANT', sans-serif">
+                {{ theme_name }}
+              </p>
+            </div>
           </div>
           <div class="h-64 flex flex-row" x-data="{wallpaper: '{{ wallpaper }}' }">
+            <div class="absolute h-10 p-3">
+              <img src="{{ skin[0].tier_icon }}" class="object-contain object-center h-10" />
+            </div>
             <div
               class="flex flex-row items-center justify-evenly w-full h-full p-5 bg-cover bg-center bg-black"
               :class="'{{ wallpaper }}' != 'null' ? `bg-[url('{{ wallpaper }}')]`: 'bg-opacity-75'"
