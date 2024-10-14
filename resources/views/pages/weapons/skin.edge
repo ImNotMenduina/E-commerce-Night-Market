@@ -2,6 +2,7 @@
   @let({theme_name} = skin[0])
   @let({swatch} = chromas[0])
   @let({full_render} = chromas[0])
+  @let({wallpaper} = skin[0])
 
   @let(img = '')
   @if (bgImage)
@@ -23,47 +24,51 @@
       x-data="{  chroma_video: '{{ chromas[0].chroma_video }}', 
                     full_render: '{{ full_render }}' 
                   }"
-      class="flex flex-row justify-evenly bg-black bg-opacity-80 w-full p-8"
+      class="flex flex-row justify-center bg-black bg-opacity-90 w-full h-full p-8"
     >
-      {{-- Skin card --}}
-      <div class="flex flex-col">
-        <div class="h-64 flex flex-row" style="width: 560px;">
-          <div class="flex flex-row items-center justify-evenly w-full h-full bg-black bg-opacity-85 p-5">
-            {{-- full render weapon image --}}
-            <div class="flex justify-center w-4/5">
-              <img id="banner" :src="full_render" src="" class="object-contain object-center h-40" />
-            </div>
-            {{-- skin chromas --}}
-            @if(swatch)
-              <div class="flex flex-col justify-start h-full w-9 ml-5">
-                @each(skin in chromas)
-                  <div
-                    @click="chroma_video = '{{ skin.chroma_video }}'; full_render = '{{ skin.full_render }}'"
-                    class="chroma_wrapper mb-4 hover:opacity-60 cursor-pointer"
-                  >
-                    <div class="overflow-hidden rounded-sm">
-                      <img src="{{ skin.swatch }}" class="object-cover" />
-                    </div>
-                  </div>
-                @end
-              </div>
-            @end
-          </div>
+      <div class="w-3/5 flex flex-row justify-evenly">
+        <div class="flex flex-col" style="width: 560px;">
+          {{-- Skin card --}}
           {{-- Skin name --}}
           <div
-            class="bg-amber-200 flex flex-row justify-start items-center h-full p-3 rounded-tr-lg"
-            style="writing-mode:vertical-rl"
+            class="bg-gradient-to-r from-violet-500 to-fuchsia-500 flex flex-row justify-start items-center p-2 rounded-t-lg"
           >
-            <h2 class="text-red-600 text-base font-bold" style="font-family: 'VALORANT', sans-serif">
+            <p class="text-white text-lg font-bold" style="font-family: 'VALORANT', sans-serif">
               {{ theme_name }}
-            </h2>
+            </p>
           </div>
+          <div class="h-64 flex flex-row" x-data="{wallpaper: '{{ wallpaper }}' }">
+            <div
+              class="flex flex-row items-center justify-evenly w-full h-full p-5 bg-cover bg-center bg-black"
+              :class="'{{ wallpaper }}' != 'null' ? `bg-[url('{{ wallpaper }}')]`: 'bg-opacity-75'"
+            >
+              {{-- full render weapon image --}}
+              <div class="flex justify-center w-4/5">
+                <img id="banner" :src="full_render" src="" class="object-contain object-center h-40" />
+              </div>
+              {{-- skin chromas --}}
+              @if(swatch)
+                <div class="flex flex-col justify-start h-full w-9 ml-5">
+                  @each(skin in chromas)
+                    <div
+                      @click="chroma_video = '{{ skin.chroma_video }}'; full_render = '{{ skin.full_render }}'"
+                      class="chroma_wrapper mb-4 hover:opacity-60 cursor-pointer"
+                    >
+                      <div class="overflow-hidden rounded-sm">
+                        <img src="{{ skin.swatch }}" class="object-cover" />
+                      </div>
+                    </div>
+                  @end
+                </div>
+              @end
+            </div>
+          </div>
+          {{-- Shop/Like buttons --}}
+          @!weapon.buttons({skin})
         </div>
-        {{-- Shop/Like buttons --}}
-        @!weapon.buttons({skin})
+        {{-- Bundle ad --}}
+        @!bundle.card({ bundle })
       </div>
-      {{-- Bundle ad --}}
-      @!bundle.card({ bundle })
     </div>
     @!footer()
   @end
