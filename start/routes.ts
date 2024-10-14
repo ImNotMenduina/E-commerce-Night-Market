@@ -8,6 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { middleware } from './kernel.js'
 
 const SessionsController = () => import('#controllers/session_controller')
 const UsersController = () => import('#controllers/users_controller')
@@ -38,6 +39,10 @@ router
     router
       .post('/favorite/dislike/:skinUuid/:email', [UsersController, 'dislike'])
       .as('user.dislike')
+    router
+      .get('/favorite/:email', [UsersController, 'favorite'])
+      .as('user.favorite')
+      .use(middleware.auth())
   })
   .prefix('/user')
 

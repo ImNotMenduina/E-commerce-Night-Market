@@ -63,4 +63,12 @@ export default class UsersController {
       .where('email_user', params.email)
       .delete()
   }
+
+  async favorite({ view, params }: HttpContext) {
+    const favorites = await db
+      .from('user_favorites')
+      .where('email_user', params.email)
+      .join('skins', 'skins.uuid', '=', 'user_favorites.uuid_skin')
+    return view.render('pages/users/favorite', { favorites })
+  }
 }

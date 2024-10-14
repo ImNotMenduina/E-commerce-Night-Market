@@ -1,0 +1,15 @@
+@layout.app()
+  @body({
+        class:['bg-default']
+  })
+    @!nav()
+    <div class="grid grid-cols-3 gap-4 p-28">
+      @each(skin in favorites)
+        <a href="{{ route('skin', [skin.uuid]) }}">
+          @!component('components/weapon/card', { full_render: skin.display_icon, display_name: skin.skin_name })
+        </a>
+      @end
+    </div>
+    @!footer()
+  @end
+@end

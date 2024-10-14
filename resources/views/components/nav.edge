@@ -132,6 +132,13 @@
                   tabindex="-1"
                   id="user-menu-item-1"
                 >Settings</a>
+                <a
+                  href="{{ route('user.favorite', [auth.user.email]) }}"
+                  class="block px-4 py-2 text-sm text-gray-700"
+                  role="menuitem"
+                  tabindex="-1"
+                  id="user-menu-item-1"
+                >Favorites</a>
                 @form({
                   action: route('session.logout'),
                   method: 'post',

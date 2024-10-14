@@ -19,7 +19,7 @@ export default class WeaponsController {
 
   async get_skin({ params, view, auth }: HttpContext) {
     //authenticate user
-    await auth.authenticate()
+    await auth.check()
     let isFavorite = false
     //
     if (auth.isAuthenticated) {
