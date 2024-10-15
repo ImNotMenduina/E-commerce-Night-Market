@@ -11,11 +11,12 @@ export default {
         ultra: '#fad663',
       },
       colors: {
-        select: '#5a9fe2',
-        exclusive: '#f5955b',
-        deluxe: '#009587',
-        premium: '#d1548d',
-        ultra: '#fad663',
+        'night-market': '#5731A5',
+        'select': '#5a9fe2',
+        'exclusive': '#f5955b',
+        'deluxe': '#009587',
+        'premium': '#d1548d',
+        'ultra': '#fad663',
       },
       backgroundImage: {
         'default-bg': "url('resources/src/defaultbg.png')",

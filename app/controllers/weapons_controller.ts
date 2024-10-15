@@ -5,7 +5,37 @@ import db from '@adonisjs/lucid/services/db'
 export default class WeaponsController {
   async get_weapons({ view }: HttpContext) {
     const data = await Weapon.all()
-    return view.render('pages/home', { data })
+
+    const skins = await db
+      .from('skins')
+      .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+      .join('weapons', 'weapons.uuid', '=', 'skins.uuid_weapon')
+      .select('skins.uuid as uuid')
+      .select('skins.skin_name')
+      .select('tiers.tier_icon')
+      .select('tiers.color')
+      .select('tiers.tier_name')
+      .select('skins.display_icon')
+      .select('weapons.weapon_name')
+    
+    //promo skins
+    function randPromoItems() {
+      let promo = []
+      for (let i = 0; i < 4; ) {
+        const skin = skins[Math.floor(Math.random() * skins.length)]
+        if (promo.includes(skin)) {
+          continue
+        } else {
+          promo.push(skin)
+          i++
+        }
+      }
+      return promo
+    }
+
+    const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS').first()
+
+    return view.render('pages/home', { data, promo_skins: randPromoItems(), currency })
   }
 
   async get_available_skins({ params, view }: HttpContext) {
