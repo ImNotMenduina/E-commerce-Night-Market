@@ -22,7 +22,9 @@ export default class WeaponsController {
       .select('tiers.color')
       .select('tiers.tier_icon')
 
-    return view.render('pages/weapons/skins_catalogue', { data, name: params.category })
+    const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS').first()
+
+    return view.render('pages/weapons/skins_catalogue', { data, name: params.category, currency })
   }
 
   async get_skin({ params, view, auth }: HttpContext) {
