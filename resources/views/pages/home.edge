@@ -5,7 +5,7 @@
     @eval(await auth.check())
     @!nav()
     {{--  get all weapons categories  --}}
-    <div class="grid grid-cols-3 gap-4 p-28">
+    <div class="grid grid-cols-3 gap-4 p-28 z-10">
       @each(weapon in data)
         <a href="{{ route('category', [weapon.weaponName]) }}">
           @!component('components/weapon/card', { full_render: weapon.shopImage, display_name: weapon.weaponName })

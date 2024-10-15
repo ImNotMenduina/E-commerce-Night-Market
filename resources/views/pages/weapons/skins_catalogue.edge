@@ -4,7 +4,7 @@
   })
     @eval(await auth.check())
     @!nav()
-    <div class="grid grid-cols-5 gap-4 p-28">
+    <div class="flex flex-row flex-wrap w-full justify-center p-16">
       @each(skin in data)
         <a href="{{ route('skin', [skin.uuid]) }}">
           @!weapon.cardPromo({full_render: skin.display_icon, display_name: skin.skin_name, tier_icon: skin.tier_icon, tier_name: skin.tier_name, currency })
