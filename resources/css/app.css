@@ -16,3 +16,7 @@ body {
 .bg-default {
   background-image: url(../src/defaultbg.png);
 }
+
+.bg-card-promo {
+  background-image: url(../src/carbobg.jpg);
+}

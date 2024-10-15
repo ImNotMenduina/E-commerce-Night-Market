@@ -1,4 +1,3 @@
-import UserFavorite from '#models/user_favorite'
 import Weapon from '#models/weapon'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -14,6 +13,15 @@ export default class WeaponsController {
       .from('weapons')
       .where('weapons.weapon_name', params.category)
       .join('skins', 'skins.uuid_weapon', '=', 'weapons.uuid')
+      .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+      .select('skins.uuid')
+      .select('skins.display_icon')
+      .select('skins.skin_name')
+      .select('tiers.tier_name_edition')
+      .select('tiers.tier_name')
+      .select('tiers.color')
+      .select('tiers.tier_icon')
+
     return view.render('pages/weapons/skins_catalogue', { data, name: params.category })
   }
 
@@ -39,6 +47,7 @@ export default class WeaponsController {
       .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
       .select('skins.uuid as uuid')
       .select('tiers.tier_icon')
+      .select('tiers.color')
       .select('theme_name')
       .select('weapon_name')
       .select('skins.display_icon')

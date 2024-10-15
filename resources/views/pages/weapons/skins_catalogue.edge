@@ -7,7 +7,7 @@
     <div class="grid grid-cols-3 gap-4 p-28">
       @each(skin in data)
         <a href="{{ route('skin', [skin.uuid]) }}">
-          @!component('components/weapon/card', { full_render: skin.display_icon, display_name: skin.skin_name })
+          @!weapon.cardPromo({full_render: skin.display_icon, display_name: skin.skin_name, tier_icon: skin.tier_icon, tier_name: skin.tier_name })
         </a>
       @end
     </div>
