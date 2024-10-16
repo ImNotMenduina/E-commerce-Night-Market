@@ -22,6 +22,9 @@ export default {
       backgroundImage: {
         'default-bg': "url('resources/src/defaultbg.png')",
       },
+      scale: {
+        '175': '1.75',
+      },
     },
   },
   plugins: [

@@ -9,7 +9,6 @@
     {{--  get all weapons categories  --}}
     <div class="flex flex-col justify-center items-center">
       <div class="h-32 flex flex-row items-center justify-center">
-
         <div
           x-data="{
                   text: '',
@@ -65,10 +64,9 @@
           </div>
         </div>
       </div>
-
-      <div class="flex flex-row overflow-hidden justify-evenly items-center w-2/3">
+      <div class="grid grid-cols-5 gap-6 overflow-hidden h-96">
         @each(skin in promo_skins)
-          <div class="card | flex flex-col mb-4 | w-56" x-data="{isFlipped: false}">
+          <div class="card | flex flex-col mb-4 | w-56 h-full" x-data="{isFlipped: false}">
             <div
               class="face front | shadow-2xl"
               @click="isFlipped = true"
@@ -77,22 +75,19 @@
               <img src="https://w0.peakpx.com/wallpaper/839/505/HD-wallpaper-omen-game-valorant-thumbnail.jpg" />
             </div>
             <div
-              class=" face back | shadow-2xl "
+              class=" face back | shadow-2xl  h-full"
               :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
             >
-              <a href="{{ route('skin', [skin.uuid]) }}">
-                @!weapon.cardPromo({full_render: skin.display_icon, display_name: skin.skin_name, tier_icon: skin.tier_icon, tier_name: skin.tier_name, currency })
+              <a href="{{ route('skin', [skin.uuid]) }}" class="h-full">
+                @!weapon.cardPromo({full_render: skin.display_icon, display_name: skin.skin_name, tier_icon: skin.tier_icon, tier_name: skin.tier_name, weapon_name: skin.weapon_name, currency })
               </a>
             </div>
           </div>
-
         @end
       </div>
     </div>
-  </div>
-
-  @!footer()
-@end
+    @!footer()
+  @end
 @end
   
   
