@@ -2,8 +2,8 @@
   @body({
   class:['bg-default']
   })
-    <div id="result-showcase" class=" flex flex-col justify-start items-center">
-      <div class="grid  gap-6 w-full grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+    <div id="result-showcase" class=" flex flex-col justify-center items-center">
+      <div class="grid  gap-6 grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         @each(skin in skins)
           <a href="{{ route('skin', [skin.uuid]) }}">
             <div class="card | flex flex-col mb-4 |  h-72">
@@ -27,7 +27,7 @@
           hx-trigger="click"
           hx-target="#result-showcase"
           hx-swap="outerHTML"
-          class="text-night-market"
+          class="text-night-market hover:text-night-pink"
           style="font-family: 'VALORANT', sans-serif"
         >Previous</button>
         <button
@@ -35,7 +35,7 @@
           hx-trigger="click"
           hx-target="#result-showcase"
           hx-swap="outerHTML"
-          class="text-night-market"
+          class="text-night-market hover:text-night-pink"
           style="font-family: 'VALORANT', sans-serif"
         >Next</button>
       </div>

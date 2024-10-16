@@ -12,7 +12,7 @@ export default {
       },
       colors: {
         'night-market': '#216BFF',
-        'night-pink': '#C223FF',
+        'night-pink': '#9854DD',
         'select': '#5a9fe2',
         'exclusive': '#f5955b',
         'deluxe': '#009587',

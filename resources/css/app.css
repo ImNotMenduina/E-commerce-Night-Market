@@ -21,6 +21,10 @@ body {
   background-image: url(../src/carbobg.jpg);
 }
 
+#bg-geometric-img {
+  opacity: 0.5;
+}
+
 .bg-card-thumb {
   background-image: url(../src/thumb_card.jpg);
 }
