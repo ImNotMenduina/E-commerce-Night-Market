@@ -6,8 +6,8 @@
     @!nav()
     <div class="absolute inset-0 bg-black opacity-35">
     </div>
-    {{--  get all weapons categories  --}}
     <div class="flex flex-col justify-center items-center">
+      {{-- Night Market --}}
       <div class="h-32 flex flex-row items-center justify-center">
         <div
           x-data="{
@@ -64,6 +64,7 @@
           </div>
         </div>
       </div>
+      {{-- Cards --}}
       <div class="grid grid-cols-5 gap-6 overflow-hidden h-96">
         @each(skin in promo_skins)
           <div class="card | flex flex-col mb-4 | w-56 h-full" x-data="{isFlipped: false}">
@@ -85,6 +86,43 @@
           </div>
         @end
       </div>
+    </div>
+
+    {{-- Search bar --}}
+    <div class="w-full p-5">
+      <form class="max-w-md mx-auto">
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg
+              class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+          </div>
+          <input
+            type="search"
+            id="default-search"
+            class="block w-full p-4 ps-10 text-sm focus:outline-none text-gray-900 border border-night-market rounded-full bg-black focus:ring-night-market focus:border-night-pink  dark:border-night-market dark:placeholder-gray-400 dark:text-white"
+            placeholder="Skins, Bundles, Buddies..."
+            required
+          />
+          <button
+            type="submit"
+            class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 duration-300 hover:bg-blue-800 focus:outline-none focus:ring-night-market font-medium rounded-full text-sm px-4 py-2 dark:bg-black dark:hover:bg-blue-700"
+          >Search</button>
+        </div>
+      </form>
     </div>
     @!footer()
   @end

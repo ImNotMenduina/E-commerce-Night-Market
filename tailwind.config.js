@@ -12,7 +12,7 @@ export default {
       },
       colors: {
         'night-market': '#216BFF',
-        'nav-button': '#C223FF',
+        'night-pink': '#C223FF',
         'select': '#5a9fe2',
         'exclusive': '#f5955b',
         'deluxe': '#009587',
@@ -23,7 +23,7 @@ export default {
         'default-bg': "url('resources/src/defaultbg.png')",
       },
       scale: {
-        '175': '1.75',
+        175: '1.75',
       },
     },
   },
