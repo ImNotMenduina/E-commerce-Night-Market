@@ -26,7 +26,6 @@ router
 
 router
   .group(() => {
-    router.get('/:category', [WeaponsController, 'get_available_skins']).as('category')
     router.get('/skin/:uuid', [WeaponsController, 'get_skin']).as('skin')
   })
   .prefix('/weapon')

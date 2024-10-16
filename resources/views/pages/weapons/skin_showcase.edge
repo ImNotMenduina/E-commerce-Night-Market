@@ -2,23 +2,42 @@
   @body({
   class:['bg-default']
   })
-    <div id="result-showcase">
-      <div class="grid grid-cols-3">
+    <div id="result-showcase" class=" flex flex-col justify-start items-center">
+      <div class="grid grid-cols-5 gap-6 w-full">
         @each(skin in skins)
           <a href="{{ route('skin', [skin.uuid]) }}">
-            <div class="text-white">
-              @!weapon.card({skin})
+            <div class="card | flex flex-col mb-4 |  h-72">
+              @!weapon.card({
+                full_render: skin.display_icon,
+                display_name: skin.skin_name,
+                tier_icon: skin.tier_icon,
+                tier_name: skin.tier_name,
+                weapon_name: skin.weapon_name,
+                currency,
+                show_case: true
+              })
               {{ excerpt(skin.body, 200) }}
             </div>
           </a>
         @end
       </div>
-      <div class="text-white">
-        @each(anchor in skins.getUrlsForRange(1, skins.lastPage))
-          <button hx-post="{{ anchor.url }}" hx-trigger="click" hx-target="#result-showcase" hx-swap="outerHTML">
-            {{ anchor.page }}
-            </button>
-        @endeach
+      <div class="flex flex-row justify-evenly items-center w-full p-5">
+        <button
+          hx-post="{{ skins.getPreviousPageUrl() }}"
+          hx-trigger="click"
+          hx-target="#result-showcase"
+          hx-swap="outerHTML"
+          class="text-night-market"
+          style="font-family: 'VALORANT', sans-serif"
+        >Previous</button>
+        <button
+          hx-post="{{ skins.getNextPageUrl() }}"
+          hx-trigger="click"
+          hx-target="#result-showcase"
+          hx-swap="outerHTML"
+          class="text-night-market"
+          style="font-family: 'VALORANT', sans-serif"
+        >Next</button>
       </div>
     </div>
   @end
