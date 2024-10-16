@@ -27,8 +27,9 @@
         src="{{ full_render }}"
         class="rotate-45 bg-center bg-cover w-full duration-500"
         x-init="
-        if (category === 'Classic' || category === 'Frenzy') scale = 'scale-90 hover:scale-110'
-        else scale = 'scale-125 hover:scale-150'
+        if (category === 'Classic' || category === 'Frenzy') { scale = 'scale-90 hover:scale-110' }
+        else if (category === 'Sheriff') { scale = 'scale-125 hover:scale-150' }
+        else { scale = 'scale-150 hover:scale-175' }
       "
         :class="scale"
       />
