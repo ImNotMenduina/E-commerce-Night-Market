@@ -3,7 +3,7 @@
   class:['bg-default']
   })
     <div id="result-showcase" class=" flex flex-col justify-start items-center">
-      <div class="grid grid-cols-5 gap-6 w-full">
+      <div class="grid grid-cols-5 gap-6 w-full xl:grid-cols-4">
         @each(skin in skins)
           <a href="{{ route('skin', [skin.uuid]) }}">
             <div class="card | flex flex-col mb-4 |  h-72">
