@@ -52,18 +52,6 @@
                         $data.charIndex -= 1;
                     }
                 }
-                            
-                setInterval(function(){
-                    if($refs.cursor.classList.contains('hidden'))
-                    {
-                        $refs.cursor.classList.remove('hidden');
-                    } 
-                    else 
-                    {
-                        $refs.cursor.classList.add('hidden');
-                    }
-                }, $data.cursorSpeed);
-
             })"
           class="flex items-center justify-center mx-auto text-center max-w-7xl"
         >
@@ -80,16 +68,18 @@
 
       <div class="flex flex-row overflow-hidden justify-evenly items-center w-2/3">
         @each(skin in promo_skins)
-          <div
-            class="card | flex flex-col mb-4 | w-56"
-            ngFor="let proyecto of proyectos"
-            click="toggleFlip()"
-            @flipState="flip"
-          >
-            <div class="face front | shadow-2xl">
+          <div class="card | flex flex-col mb-4 | w-56" x-data="{isFlipped: false}">
+            <div
+              class="face front | shadow-2xl"
+              @click="isFlipped = true"
+              :style="isFlipped ? 'transform: perspective(600px) rotateY(180deg);' : ''"
+            >
               <img src="https://w0.peakpx.com/wallpaper/839/505/HD-wallpaper-omen-game-valorant-thumbnail.jpg" />
             </div>
-            <div class=" face back | shadow-2xl ">
+            <div
+              class=" face back | shadow-2xl "
+              :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
+            >
               <a href="{{ route('skin', [skin.uuid]) }}">
                 @!weapon.cardPromo({full_render: skin.display_icon, display_name: skin.skin_name, tier_icon: skin.tier_icon, tier_name: skin.tier_name, currency })
               </a>

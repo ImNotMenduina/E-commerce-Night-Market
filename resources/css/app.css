@@ -60,10 +60,11 @@ body {
   align-items: center;
 }
 
-.card:hover .front {
+/* .card:hover .front {
   transform: perspective(600px) rotateY(180deg);
 }
 
 .card:hover .back {
   transform: perspective(600px) rotateY(360deg);
-}
+} 
+ */
