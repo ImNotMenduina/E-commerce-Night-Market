@@ -1,3 +1,4 @@
+import Bundle from '#models/bundle'
 import Weapon from '#models/weapon'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -5,6 +6,7 @@ import db from '@adonisjs/lucid/services/db'
 export default class WeaponsController {
   async get_weapons({ view }: HttpContext) {
     const data = await Weapon.all()
+    const bundles = await Bundle.all()
 
     const skins = await db
       .from('skins')
@@ -17,11 +19,11 @@ export default class WeaponsController {
       .select('tiers.tier_name')
       .select('skins.display_icon')
       .select('weapons.weapon_name')
-    
+
     //promo skins
     function randPromoItems() {
       let promo = []
-      for (let i = 0; i < 4; ) {
+      for (let i = 0; i < 5; ) {
         const skin = skins[Math.floor(Math.random() * skins.length)]
         if (promo.includes(skin)) {
           continue
@@ -33,9 +35,28 @@ export default class WeaponsController {
       return promo
     }
 
+    function randPromoBundle() {
+      let promo = []
+      for (let i = 0; i < 5; ) {
+        const bundle = bundles[Math.floor(Math.random() * bundles.length)]
+        if (promo.includes(bundle)) {
+          continue
+        } else {
+          promo.push(bundle)
+          i++
+        }
+      }
+      return promo
+    }
+
     const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS').first()
 
-    return view.render('pages/home', { data, promo_skins: randPromoItems(), currency })
+    return view.render('pages/home', {
+      promo_bundles: randPromoBundle(),
+      promo_skins: randPromoItems(),
+      data,
+      currency,
+    })
   }
 
   async get_available_skins({ params, view }: HttpContext) {

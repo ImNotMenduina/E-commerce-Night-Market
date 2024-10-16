@@ -153,15 +153,11 @@
           </div>
         @else
           <div class="flex flex-row justify-evenly w-48">
-            <div
-              class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-            >
-              <a href="{{ route('user.signin') }}">Signin</a>
+            <div class="text-white py-2 px-4 rounded">
+              <a href="{{ route('user.signin') }}">Sign in</a>
             </div>
-            <div
-              class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-            >
-              <a href="{{ route('user.signup') }}">Signup</a>
+            <div class="bg-night-market text-white py-2 px-4 rounded-full">
+              <a href="{{ route('user.signup') }}">Sign up</a>
             </div>
           </div>
         @end

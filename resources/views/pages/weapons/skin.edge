@@ -15,6 +15,8 @@
   })
     @eval(await auth.check())
     @!nav()
+    <div class="absolute inset-0 bg-black opacity-75">
+    </div>
     <div
       x-data="{  chroma_video: '{{ chromas[0].chroma_video }}', 
                     full_render: '{{ skin.display_icon }}' 

@@ -4,8 +4,10 @@
   })
     @eval(await auth.check())
     @!nav()
+    <div class="absolute inset-0 bg-black opacity-35">
+    </div>
     {{--  get all weapons categories  --}}
-    <div class="w-full h-full">
+    <div class="flex flex-col justify-center items-center">
       <div class="h-32 flex flex-row items-center justify-center">
 
         <div
@@ -66,28 +68,41 @@
           class="flex items-center justify-center mx-auto text-center max-w-7xl"
         >
           <div class="relative flex items-center justify-center h-auto">
-            <p class="leading-tight text-7xl font-extrabold text-night-market" x-text="text">
+            <p
+              class="leading-tight text-7xl font-extrabold text-night-market"
+              style="font-family: 'VALORANT', sans-serif"
+              x-text="text"
+            >
             </p>
           </div>
         </div>
       </div>
-      <div class="flex flex-row w-full overflow-hidden justify-center items-center">
+
+      <div class="flex flex-row overflow-hidden justify-evenly items-center w-2/3">
         @each(skin in promo_skins)
-          <a href="{{ route('skin', [skin.uuid]) }}">
-            @!weapon.cardPromo({full_render: skin.display_icon, display_name: skin.skin_name, tier_icon: skin.tier_icon, tier_name: skin.tier_name, currency })
-          </a>
+          <div
+            class="card | flex flex-col mb-4 | w-56"
+            ngFor="let proyecto of proyectos"
+            click="toggleFlip()"
+            @flipState="flip"
+          >
+            <div class="face front | shadow-2xl">
+              <img src="https://w0.peakpx.com/wallpaper/839/505/HD-wallpaper-omen-game-valorant-thumbnail.jpg" />
+            </div>
+            <div class=" face back | shadow-2xl ">
+              <a href="{{ route('skin', [skin.uuid]) }}">
+                @!weapon.cardPromo({full_render: skin.display_icon, display_name: skin.skin_name, tier_icon: skin.tier_icon, tier_name: skin.tier_name, currency })
+              </a>
+            </div>
+          </div>
+
         @end
       </div>
     </div>
+  </div>
 
-    {{-- <div class="grid grid-cols-3 gap-4 p-28 z-10">
-      @each(weapon in data)
-        <a href="{{ route('category', [weapon.weaponName]) }}">
-          @!component('components/weapon/card', { full_render: weapon.shopImage, display_name: weapon.weaponName })
-        </a>
-      @end
-    </div> --}}
-    @!footer()
-  @end
+  @!footer()
 @end
-
+@end
+  
+  

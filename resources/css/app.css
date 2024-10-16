@@ -20,3 +20,50 @@ body {
 .bg-card-promo {
   background-image: url(../src/carbobg.jpg);
 }
+
+.bg-card-thumb {
+  background-image: url(../src/thumb_card.jpg);
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 270px;
+}
+
+.card .face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: 0.9s;
+}
+
+.card .front {
+  transform: perspective(600px) rotateY(0deg);
+}
+
+.card .front img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .back {
+  transform: perspective(600px) rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card:hover .front {
+  transform: perspective(600px) rotateY(180deg);
+}
+
+.card:hover .back {
+  transform: perspective(600px) rotateY(360deg);
+}

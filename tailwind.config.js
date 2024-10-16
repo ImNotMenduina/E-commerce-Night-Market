@@ -11,7 +11,8 @@ export default {
         ultra: '#fad663',
       },
       colors: {
-        'night-market': '#5731A5',
+        'night-market': '#216BFF',
+        'nav-button': '#C223FF',
         'select': '#5a9fe2',
         'exclusive': '#f5955b',
         'deluxe': '#009587',
