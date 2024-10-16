@@ -13,9 +13,16 @@ import { middleware } from './kernel.js'
 const SessionsController = () => import('#controllers/session_controller')
 const UsersController = () => import('#controllers/users_controller')
 const WeaponsController = () => import('#controllers/weapons_controller')
+const IndexController = () => import('#controllers/index_controller')
 //const BundlesController = () => import('#controllers/bundles_controller')
 
-router.get('/', [WeaponsController, 'get_weapons']).as('home')
+router.get('/', [IndexController, 'index']).as('home')
+
+router
+  .group(() => {
+    router.post('/product/skin', [WeaponsController, 'get_skin_by_name']).as('search.skin')
+  })
+  .prefix('search')
 
 router
   .group(() => {

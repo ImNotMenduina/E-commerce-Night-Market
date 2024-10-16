@@ -5,7 +5,7 @@
   >
     {{-- full render weapon image --}}
     <div class="flex justify-center w-4/5">
-      <img id="banner" src="{{ full_render }}" class="object-contain object-center h-32" />
+      <img id="banner" src="{{ skin.display_icon }}" class="object-contain object-center h-32" />
     </div>
     {{-- skin chromas --}}
   </div>
@@ -15,7 +15,7 @@
   >
     <p
       x-init="
-      let n = `{{ display_name }}`
+      let n = `{{ skin.skin_name }}`
       let words = n.split(' ')
       if(words.length > 1) {
         words.pop()

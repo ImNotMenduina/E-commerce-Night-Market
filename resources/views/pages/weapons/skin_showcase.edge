@@ -1,0 +1,25 @@
+@layout.app()
+  @body({
+  class:['bg-default']
+  })
+    <div id="result-showcase">
+      <div class="grid grid-cols-3">
+        @each(skin in skins)
+          <a href="{{ route('skin', [skin.uuid]) }}">
+            <div class="text-white">
+              @!weapon.card({skin})
+              {{ excerpt(skin.body, 200) }}
+            </div>
+          </a>
+        @end
+      </div>
+      <div class="text-white">
+        @each(anchor in skins.getUrlsForRange(1, skins.lastPage))
+          <button hx-post="{{ anchor.url }}" hx-trigger="click" hx-target="#result-showcase" hx-swap="outerHTML">
+            {{ anchor.page }}
+            </button>
+        @endeach
+      </div>
+    </div>
+  @end
+@end
