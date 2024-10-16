@@ -66,9 +66,9 @@
           </div>
         </div>
         {{-- Cards --}}
-        <div class="grid grid-cols-5 gap-6 overflow-hidden h-96">
+        <div class="grid grid-cols-5 gap-6 overflow-hidden lg:h-96 md:h-80 h-60">
           @each(skin in promo_skins)
-            <div class="card | flex flex-col mb-4 | w-56 h-full" x-data="{isFlipped: false}">
+            <div class="card | flex flex-col mb-4 | lg:w-56 md:w-48 w-32 h-full" x-data="{isFlipped: false}">
               <div
                 class="face front | shadow-2xl"
                 @click="isFlipped = true"
