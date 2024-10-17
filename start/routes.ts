@@ -22,7 +22,7 @@ router
   .group(() => {
     router.get('/product/skin', [WeaponsController, 'show_skins_by_name']).as('search.skin')
     router
-      .get('/product/skin/:category', [WeaponsController, 'show_skins_by_category'])
+      .get('/product/skin/:category?', [WeaponsController, 'show_skins_by_category'])
       .as('search.category')
   })
   .prefix('search')
