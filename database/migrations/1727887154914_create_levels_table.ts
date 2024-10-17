@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('level_name')
       table.string('level_video')
       table.string('level_item')
-      table.string('uuid_skin')
+      table.string('uuid_skin').references('skins.uuid').onDelete('CASCADE')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

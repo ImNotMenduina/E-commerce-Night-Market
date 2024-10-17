@@ -9,10 +9,10 @@ export default class extends BaseSchema {
       table.string('skin_name')
       table.string('display_icon')
       table.string('theme_uuid')
-      table.string('content_tier_uuid')
       table.string('wallpaper')
-      table.string('uuid_weapon')
-      table.string('uuid_bundle')
+      table.string('content_tier_uuid')
+      table.string('uuid_weapon').references('weapons.uuid').onDelete('CASCADE')
+      table.string('uuid_bundle').references('bundles.uuid').onDelete('CASCADE')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

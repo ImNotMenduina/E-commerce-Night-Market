@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.string('full_render')
       table.string('swatch')
       table.string('chroma_video')
-      table.string('uuid_skin')
+      table.string('uuid_skin').references('skins.uuid').onDelete('CASCADE')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
