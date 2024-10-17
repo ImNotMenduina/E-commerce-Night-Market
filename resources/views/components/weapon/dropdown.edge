@@ -1,18 +1,17 @@
-<div class="w-48 h-10 mb-1" x-data="{open: false}">
+<div class="w-44 h-10 mb-1" x-data="{open: false}">
   <button
     id="dropdownHoverButton"
     @click="open = !open"
-    class="w-full h-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    class="w-full h-full text-white bg-blue-700 hover:bg-night-pink focus:outline-none font-medium rounded-sm text-sm p-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-night-pink"
     type="button"
   >
     <div
-      class="flex flex-row w-full justify-between items-center"
+      class="flex h-full flex-row w-full justify-between items-center"
       x-data="{category: '{{ category }}', scale: ''}"
     >
       <div
-        class="h-full w-16"
+        class="h-full w-16 flex flex-row justify-center items-center"
         x-init="
-        console.log(category)
         if(category === 'Pistols') scale = 'scale-75'
         else if(category === 'Rifles') scale = 'scale-125'
         else if(category === 'Sniper Rifles') scale = 'scale-150'
@@ -22,7 +21,7 @@
         <img src="{{ shop_image }}" class="rotate-12 bg-center bg-contain" :class="scale" />
       </div>
       <div>
-        <p class="text-xs" style="font-family: 'VALORANT', sans-serif">
+        <p class="text-xs text-right" style="font-family: 'VALORANT', sans-serif">
           {{ category }}
         </p>
       </div>
