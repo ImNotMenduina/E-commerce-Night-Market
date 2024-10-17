@@ -8,27 +8,44 @@ export default class WeaponsController {
     const category = params.category
     const page = request.input('page', 1)
     const limit = 10
+    let skins
 
-    const skins = await db
-      .from('weapons')
-      .where('weapons.weapon_name', category)
-      .join('skins', 'skins.uuid_weapon', '=', 'weapons.uuid')
-      .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
-      .select(
-        'skins.uuid',
-        'skins.display_icon',
-        'skins.skin_name',
-        'tiers.tier_name_edition',
-        'tiers.tier_name',
-        'tiers.color',
-        'tiers.tier_icon',
-        'weapons.weapon_name'
-      )
-      .paginate(page, limit)
+    if (category) {
+      skins = await db
+        .from('weapons')
+        .where('weapons.weapon_name', category)
+        .join('skins', 'skins.uuid_weapon', '=', 'weapons.uuid')
+        .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+        .select(
+          'skins.uuid',
+          'skins.display_icon',
+          'skins.skin_name',
+          'tiers.tier_name_edition',
+          'tiers.tier_name',
+          'tiers.color',
+          'tiers.tier_icon',
+          'weapons.weapon_name'
+        )
+        .paginate(page, limit)
+
+      skins.baseUrl(`search/product/skin/${category}`)
+    } else {
+      skins = await db
+        .from('skins')
+        .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+        .select(
+          'skins.uuid',
+          'skins.display_icon',
+          'skins.skin_name',
+          'tiers.tier_name_edition',
+          'tiers.tier_name',
+          'tiers.color',
+          'tiers.tier_icon'
+        )
+        .paginate(page, limit)
+    }
 
     const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS').first()
-
-    skins.baseUrl(`search/product/skin/${category}`)
 
     return view.render('pages/weapons/skin_showcase', { skins, currency })
   }

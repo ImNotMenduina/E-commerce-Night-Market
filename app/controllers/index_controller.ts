@@ -20,7 +20,7 @@ export default class IndicesController {
       .select('skins.display_icon')
       .select('weapons.weapon_name')
 
-    const pistol = await Weapon.findBy({ category: 'Pistols' })
+    const pistol = await Weapon.findBy({ weaponName: 'Classic' })
     const rifle = await Weapon.findBy({ category: 'Rifles' })
     const shotgun = await Weapon.findBy({ category: 'Shotguns' })
     const sniper = await Weapon.findBy({ category: 'Sniper Rifles' })
