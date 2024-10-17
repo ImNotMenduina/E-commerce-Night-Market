@@ -1,4 +1,4 @@
-<div class="w-56 h-10 mb-1" x-data="{open: false}">
+<div class="w-48 h-10 mb-1" x-data="{open: false}">
   <button
     id="dropdownHoverButton"
     @click="open = !open"
@@ -10,7 +10,7 @@
       x-data="{category: '{{ category }}', scale: ''}"
     >
       <div
-        class="h-full w-16 z-0"
+        class="h-full w-16"
         x-init="
         console.log(category)
         if(category === 'Pistols') scale = 'scale-75'
@@ -22,7 +22,7 @@
         <img src="{{ shop_image }}" class="rotate-12 bg-center bg-contain" :class="scale" />
       </div>
       <div>
-        <p style="font-family: 'VALORANT', sans-serif">
+        <p class="text-xs" style="font-family: 'VALORANT', sans-serif">
           {{ category }}
         </p>
       </div>
@@ -33,12 +33,12 @@
   <div
     x-show="open"
     @click.outside="open = false"
-    class="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-white"
+    class="z-40 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-white"
   >
     <ul class="py-2 text-sm dark:text-gray-200" aria-labelledby="dropdownHoverButton">
       @each(weapon in weapons)
         @if(weapon.category == category)
-          <li class="z-50">
+          <li class="z-50 border-2 hover:border-night-pink" @click="open = !open">
             <form hx-get="{{ route('search.category', [weapon.weaponName]) }}" hx-target="#search-results">
               <button type="submit">
                 <div class="flex flex-row justify-between items-center p-2 hover:cursor-pointer">
