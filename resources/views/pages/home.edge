@@ -5,8 +5,6 @@
     @eval(await auth.check())
     @!nav()
     <div class="flex flex-col justify-center items-center">
-      <div class="absolute inset-0 bg-black opacity-35">
-      </div>
       <div class="flex flex-col justify-center items-center">
         {{-- Night Market --}}
         <div class="h-32 flex flex-row items-center justify-center">
@@ -121,8 +119,9 @@
             type="search"
             name="search"
             placeholder="Begin Typing To Search Users..."
-            hx-post="{{ route('search.skin') }}"
-            hx-trigger="load delay:1s, input changed delay:500ms, search"
+            hx-get="{{ route('search.skin') }}"
+            hx-params="search"
+            hx-trigger="load, input changed delay:500ms, search"
             hx-target="#search-results"
             class="form-control block w-full p-4 ps-10 text-sm focus:outline-none text-gray-900 border border-night-market rounded-full bg-black focus:ring-night-market focus:border-night-pink  dark:border-night-market dark:placeholder-gray-400 dark:text-white"
             placeholder="Skins, Bundles, Buddies..."
@@ -130,7 +129,17 @@
         </div>
       </div>
       {{-- Show Case --}}
-      <div id="search-results" class="text-white w-2/3 z-10">
+      <div class="flex flex-row w-full justify-evenly">
+        <div class="grid grid-cols-1 gap-1 content-start">
+          @!weapon.dropdown({shop_image: pistol.shopImage, category: 'Pistols' ,weapons})
+          @!weapon.dropdown({shop_image: smg.shopImage, category: 'SMGs' ,weapons})
+          @!weapon.dropdown({shop_image: shotgun.shopImage, category: 'Shotguns' ,weapons})
+          @!weapon.dropdown({shop_image: rifle.shopImage, category: 'Rifles' ,weapons})
+          @!weapon.dropdown({shop_image: sniper.shopImage, category: 'Sniper Rifles' ,weapons})
+          @!weapon.dropdown({shop_image: heavy.shopImage, category: 'Heavy Weapons' ,weapons})
+        </div>
+        <div id="search-results" class="text-white w-2/3 z-10">
+        </div>
       </div>
     </div>
     @!footer()

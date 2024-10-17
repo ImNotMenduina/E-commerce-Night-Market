@@ -5,7 +5,7 @@ import Bundle from '#models/bundle'
 
 export default class IndicesController {
   async index({ view }: HttpContext) {
-    const data = await Weapon.all()
+    const weapons = await Weapon.all()
     const bundles = await Bundle.all()
 
     const skins = await db
@@ -19,6 +19,13 @@ export default class IndicesController {
       .select('tiers.tier_name')
       .select('skins.display_icon')
       .select('weapons.weapon_name')
+
+    const pistol = await Weapon.findBy({ category: 'Pistols' })
+    const rifle = await Weapon.findBy({ category: 'Rifles' })
+    const shotgun = await Weapon.findBy({ category: 'Shotguns' })
+    const sniper = await Weapon.findBy({ category: 'Sniper Rifles' })
+    const smg = await Weapon.findBy({ category: 'SMGs' })
+    const heavy = await Weapon.findBy({ category: 'Heavy Weapons' })
 
     //promo skins
     function randPromoItems() {
@@ -54,8 +61,14 @@ export default class IndicesController {
     return view.render('pages/home', {
       promo_bundles: randPromoBundle(),
       promo_skins: randPromoItems(),
-      data,
+      weapons,
       currency,
+      pistol,
+      rifle,
+      shotgun,
+      sniper,
+      smg,
+      heavy,
     })
   }
 }

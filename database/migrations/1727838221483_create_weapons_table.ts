@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.string('display_icon')
       table.string('weapon_name')
       table.string('shop_image')
+      table.string('category')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

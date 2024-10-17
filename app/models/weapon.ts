@@ -16,6 +16,9 @@ export default class Weapon extends BaseModel {
   @column()
   declare shopImage: string
 
+  @column()
+  declare category: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

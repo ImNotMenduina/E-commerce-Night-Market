@@ -3,7 +3,7 @@
   class:['bg-default']
   })
     <div id="result-showcase" class=" flex flex-col justify-center items-center">
-      <div class="grid  gap-6 grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div class="grid  gap-6 grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         @each(skin in skins)
           <a href="{{ route('skin', [skin.uuid]) }}">
             <div class="card | flex flex-col mb-4 |  h-72">
@@ -23,7 +23,7 @@
       </div>
       <div class="flex flex-row justify-evenly items-center w-full p-5">
         <button
-          hx-post="{{ skins.getPreviousPageUrl() }}"
+          hx-get="{{ skins.getPreviousPageUrl() }}"
           hx-trigger="click"
           hx-target="#result-showcase"
           hx-swap="outerHTML"
@@ -31,7 +31,7 @@
           style="font-family: 'VALORANT', sans-serif"
         >Previous</button>
         <button
-          hx-post="{{ skins.getNextPageUrl() }}"
+          hx-get="{{ skins.getNextPageUrl() }}"
           hx-trigger="click"
           hx-target="#result-showcase"
           hx-swap="outerHTML"

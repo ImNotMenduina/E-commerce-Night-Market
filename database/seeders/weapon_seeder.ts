@@ -14,6 +14,7 @@ export default class extends BaseSeeder {
           displayIcon: w.displayIcon,
           weaponName: w.displayName,
           shopImage: w.shopData != null ? w.shopData.newImage : null,
+          category: w.shopData != null ? w.shopData.category : null,
         }
       })
       await Weapon.createMany(weapons)
