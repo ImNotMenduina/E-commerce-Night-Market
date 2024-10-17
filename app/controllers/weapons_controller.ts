@@ -1,3 +1,5 @@
+import Currency from '#models/currency'
+import Skin from '#models/skin'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
 
@@ -83,49 +85,23 @@ export default class WeaponsController {
       if (favorite.length) isFavorite = true
     }
 
-    const skin = await db
-      .from('skins')
-      .where('skins.uuid', params.uuid)
-      .join('themes', 'themes.uuid', '=', 'skins.theme_uuid')
-      .join('weapons', 'weapons.uuid', '=', 'skins.uuid_weapon')
-      .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
-      .select('skins.uuid as uuid')
-      .select('tiers.tier_icon')
-      .select('tiers.color')
-      .select('theme_name')
-      .select('weapon_name')
-      .select('skins.display_icon')
-      .select('wallpaper')
-      .first()
+    const skin = await Skin.find(params.uuid)
+    if (skin) {
+      await skin.load('weapon')
+      await skin.load('chromas')
+      await skin.load('levels')
+      await skin.load('theme')
+      await skin.load('tier')
+      await skin.load('bundle')
+    }
 
-    const skin_chromas = await db
-      .from('skins')
-      .where('skins.uuid', params.uuid)
-      .join('chromas', 'chromas.uuid_skin', '=', 'skins.uuid')
-      .select('full_render')
-      .select('swatch')
-      .select('chroma_video')
-
-    const skin_levels = await db
-      .from('skins')
-      .where('skins.uuid', params.uuid)
-      .join('levels', 'levels.uuid_skin', '=', 'skins.uuid')
-
-    const skin_bundle = await db
-      .from('skins')
-      .where('skins.uuid', params.uuid)
-      .join('bundles', 'bundles.uuid', '=', 'skins.uuid_bundle')
-
-    const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS')
+    const currency = await Currency.findBy('currencyName', 'VALORANT POINTS')
 
     return view.render('pages/weapons/skin', {
       skin,
       currency,
       isFavorite,
-      chromas: skin_chromas,
-      levels: skin_levels,
-      bundle: skin_bundle,
-      bgImage: skin_bundle.length ? skin_bundle[0].display_icona : '',
+      bgImage: skin?.uuidBundle ? skin?.bundle.displayIcona : '',
     })
   }
 }
