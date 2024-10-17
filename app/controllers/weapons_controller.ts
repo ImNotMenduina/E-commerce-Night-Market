@@ -19,6 +19,7 @@ export default class WeaponsController {
       .select('tiers.tier_name')
       .select('tiers.color')
       .select('tiers.tier_icon')
+      .select('weapons.weapon_name')
       .paginate(page, limit)
 
     const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS').first()
