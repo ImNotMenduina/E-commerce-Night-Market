@@ -18,7 +18,7 @@
   :class="[border, hover, width]"
 >
   <div class="flex flex-row justify-evenly items-center absolute top-0 right-0 h-7 w-24 m-1">
-    <img src="{{ currency.currency_icon }}" class="bg-contain bg-center h-full z-0" />
+    <img src="{{ currency.currency_icon }}" class="object-contain bg-center h-full z-0" />
     <p class="text-white  text-lg ">
       2750
     </p>
@@ -32,7 +32,7 @@
     >
       <img
         src="{{ full_render }}"
-        class="rotate-45 bg-center bg-cover w-full duration-500"
+        class="rotate-45 bg-center object-contain w-full duration-500"
         x-init="
             console.log(category)
             if (category === 'Classic' || category === 'Frenzy') { scale = 'scale-90 hover:scale-110' }
