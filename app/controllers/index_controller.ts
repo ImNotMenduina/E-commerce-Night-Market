@@ -44,7 +44,7 @@ export default class IndicesController {
 
     function randPromoBundle() {
       let promo = []
-      for (let i = 0; i < 5; ) {
+      for (let i = 0; i < 20; ) {
         const bundle = bundles[Math.floor(Math.random() * bundles.length)]
         if (promo.includes(bundle)) {
           continue
@@ -58,7 +58,15 @@ export default class IndicesController {
 
     const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS').first()
 
+    const lastPosted = await db
+      .from('skins')
+      .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+      .orderBy('skins.created_at', 'desc') // Order by creation date in descending order
+      .limit(20)
+    // Limit to the last 6 products
+
     return view.render('pages/home', {
+      lastPosted,
       promo_bundles: randPromoBundle(),
       promo_skins: randPromoItems(),
       weapons,
