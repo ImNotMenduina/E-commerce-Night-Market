@@ -1,6 +1,6 @@
 <div
-  class="h-full min-w-[100px] border-2 relative overflow-hidden"
-  x-data="{rarity: '{{ tier_name }}', border: '', show_case: {{ show_case }}, hover:'', width: 'w-56'}"
+  class="h-full border-2 relative overflow-hidden"
+  x-data="{rarity: '{{ tier_name }}', border: '', show_case: {{ show_case }}, hover:''}"
   x-init="
       if (!show_case) { 
         if (rarity == 'Select') { rarity = 'from-select to-transparent'; border = 'border-select' }
@@ -9,13 +9,12 @@
         if (rarity == 'Exclusive') { rarity = 'from-exclusive to-transparent'; border = 'border-exclusive' }
         if (rarity == 'Ultra') { rarity = 'from-ultra to-transparent'; border = 'border-ultra' }
       } else {
-          width = 'w-48'
           rarity = 'from-night-market to-transparent'; 
           border = 'border-night-market'
           hover = 'hover:border-night-pink'
       }
   "
-  :class="[border, hover, width]"
+  :class="[border, hover]"
 >
   <div class="flex flex-row justify-evenly items-center absolute top-0 right-0 h-7 w-24 m-1">
     <img src="{{ currency.currency_icon }}" class="object-contain bg-center h-full z-0" />
