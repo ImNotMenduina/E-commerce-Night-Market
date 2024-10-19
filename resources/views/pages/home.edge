@@ -314,6 +314,84 @@
     </section>
     <!-- ====== Bundle Carousel Section End -->
 
+    <section class="bg-black py-16 dark:bg-dark">
+      <div class="container mx-auto">
+        <div class="-mx-4 flex flex-wrap">
+          <div class="w-full px-4">
+            <div class="mx-auto mb-12 max-w-[510px] text-center lg:mb-[70px]">
+              <h2 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px]">
+                Busque suas skins aqui
+              </h2>
+              <p class="text-base text-body-color text-white">
+                O Night Market disponibiliza uma forma fácil e rápida de encontrar suas skins. Digite o nome da arma ou o nome do bundle para acessar suas informações.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center flex-wrap">
+          <div class="w-full px-4 lg:w-1/4">
+            <div class="relative px-4">
+              {{-- INPUT --}}
+              <div class="mb-10 max-w-md w-full mx-auto mt-4">
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg
+                      class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="search"
+                    name="search"
+                    placeholder="Begin Typing To Search Users..."
+                    hx-get="{{ route('search.skin') }}"
+                    hx-params="search"
+                    hx-trigger="load, input changed delay:500ms, search"
+                    hx-target="#search-results"
+                    class="form-control block w-full p-4 ps-10 text-sm focus:outline-none text-gray-900 border border-night-market rounded-full bg-black focus:ring-night-market focus:border-night-pink  dark:border-night-market dark:placeholder-gray-400 dark:text-white"
+                    placeholder="Skins, Bundles, Buddies..."
+                  />
+                </div>
+              </div>
+              {{-- INPUT END --}}
+              {{-- CATEGORY START --}}
+              <div class="flex flex-col justify-between rounded-md bg-opacity-50 mr-4 w-full">
+                @!weapon.dropdown({shop_image: pistol.shopImage, category: 'Pistols' ,weapons})
+                @!weapon.dropdown({shop_image: smg.shopImage, category: 'SMGs' ,weapons})
+                @!weapon.dropdown({shop_image: shotgun.shopImage, category: 'Shotguns' ,weapons})
+                @!weapon.dropdown({shop_image: rifle.shopImage, category: 'Rifles' ,weapons})
+                @!weapon.dropdown({shop_image: sniper.shopImage, category: 'Sniper Rifles' ,weapons})
+                @!weapon.dropdown({shop_image: heavy.shopImage, category: 'Heavy Weapons' ,weapons})
+              </div>
+              {{-- CATEGORY END --}}
+            </div>
+          </div>
+          <div class="mt-4 w-full px-4 lg:w-2/3 flex justify-center items-center">
+            {{-- sHOW SKIKS SEARCH PROGRESSIVE WEB --}}
+            <div
+              hx-get="{{ route('search.category') }}"
+              hx-trigger="load"
+              id="search-results"
+              class="text-white w-full z-10"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ====== Testimonials Section Start -->
     <section class="pt-20 pb-10 dark:bg-dark lg:pb-20">
       <div class="container mx-auto">
