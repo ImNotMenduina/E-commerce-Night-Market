@@ -2,36 +2,29 @@
     type:'text',
     required,
     class: [
-        'bg-gray-50', 
+        'bg-black',
         'border',
-        'border-gray-300',
+        'border-night-market',
         'text-gray-900',
         'text-sm',
-        'rounded-lg',
-        'focus:ring-blue-500',
-        'focus:border-blue-500',
+        'rounded-md',
         'block',
-        'w-full', 
+        'w-full',
         'p-2.5',
-        'dark:bg-gray-700',
-        'dark:border-gray-600',
-        'dark:placeholder-gray-400',
-        'dark:text-white',
-        'dark:focus:ring-blue-500',
-        'dark:focus:border-blue-500',
-    ] 
+        'focus: ring-0',
+        'outline-none',
+        'text-white'
+    ]
 }).toAttrs()
 )
 
 @let(forlb = id)
-    
+
 <div class="mb-5">
   <label
-    for="{{forlb}}"
+    for="{{ forlb }}"
     class="block mb-2 text-sm font-medium text-gray-900 dark:text-red-600"
     style="font-family: 'VALORANT', sans-serif"
   >Your {{ name }}</label>
-  <input
-    {{ attributes }}
-  />
+  <input {{ attributes }} />
 </div>

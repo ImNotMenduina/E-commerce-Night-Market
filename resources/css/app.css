@@ -17,6 +17,10 @@ body {
   background-image: url(../src/nightbackground.jpeg);
 }
 
+.bg-login {
+  background-image: url(../src/omenRelaxed.jpeg);
+}
+
 .bg-card-promo {
   background-image: url(../src/carbobg.jpg);
 }
