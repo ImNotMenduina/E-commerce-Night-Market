@@ -113,7 +113,7 @@ export default class WeaponsController {
       if (favorite.length) isFavorite = true
     }
 
-    const skin = await Skin.find(params.uuid)
+    const skin = await Skin.findBy('uuid', params.uuid)
     if (skin) {
       await skin.load('weapon')
       await skin.load('chromas')

@@ -26,19 +26,19 @@ export default class extends BaseSeeder {
           async function findThemeId(uuid) {
             const theme = await Theme.findBy('uuid', uuid)
             if (theme) return theme.id
-            return 1000
+            return -1
           }
 
           async function findTierId(uuid) {
             const tier = await Tier.findBy('uuid', uuid)
             if (tier) return tier.id
-            return 1000
+            return -1
           }
 
           return {
             uuid: s.uuid,
             skinName: s.displayName,
-            displayIcon: s.displayIcon,
+            displayIcon: s.chromas[0].fullRender,
             wallpaper: s.wallpaper,
             weaponId: w.id,
             themeId: await findThemeId(s.themeUuid),
