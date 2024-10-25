@@ -5,7 +5,7 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.string('uuid_skin').primary()
+      table.integer('skin_id').primary()
       table.string('email_user').primary()
 
       table.timestamp('created_at')

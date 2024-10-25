@@ -5,6 +5,9 @@ import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Tier extends BaseModel {
   @column({ isPrimary: true })
+  declare id: number
+
+  @column()
   declare uuid: string
 
   @column()
@@ -29,7 +32,7 @@ export default class Tier extends BaseModel {
   declare tierIcon: string
 
   @hasMany(() => Skin, {
-    foreignKey: 'contentTierUuid',
+    foreignKey: 'tierId',
   })
   declare skins: HasMany<typeof Skin>
 

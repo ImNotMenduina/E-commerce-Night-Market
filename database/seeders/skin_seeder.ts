@@ -1,56 +1,62 @@
 import Bundle from '#models/bundle'
 import Skin from '#models/skin'
+import Theme from '#models/theme'
+import Tier from '#models/tier'
 import Weapon from '#models/weapon'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
   async run() {
-    const response = await fetch('https://valorant-api.com/v1/weapons/skins')
-    const { data } = await response.json()
-
     const weapons = await Weapon.all()
     const bundles = await Bundle.all()
 
-    const skins = data.map((s) => {
-      const words = s.displayName.split(' ')
-      const category = words.pop()
+    for (const w of weapons) {
+      const response = await fetch(`https://valorant-api.com/v1/weapons/${w.uuid}`)
+      const { data } = await response.json()
 
-      function findWeaponUuid(name) {
-        for (const w of weapons) {
-          if (name === w.weaponName) return w.uuid
-        }
-        return null
-      }
-
-      function findBundleUuid(name) {
-        for (const b of bundles) {
-          if (name.includes(b.bundleName)) {
-            return b.uuid
+      const skins = await Promise.all(
+        data.skins.map(async (s) => {
+          function findBundleId(name) {
+            for (const b of bundles) {
+              if (name.includes(b.bundleName)) return b.id
+            }
+            return null
           }
-        }
-        return null
-      }
 
-      return {
-        uuid: s.uuid,
-        skinName: s.displayName,
-        displayIcon: s.displayIcon,
-        themeUuid: s.themeUuid,
-        contentTierUuid: s.contentTierUuid,
-        wallpaper: s.wallpaper,
-        uuidWeapon: findWeaponUuid(category),
-        uuidBundle: findBundleUuid(s.displayName),
-      }
-    })
-    //preprossing:
-    //removing "random && standard names" -
-    //problem with constraints (UNIQUE)
-    const skins_pp = skins.filter(
-      (sk) =>
-        !sk.skinName.includes('Random') &&
-        !sk.skinName.includes('Standard') &&
-        sk.displayIcon != null
-    )
-    await Skin.createMany(skins_pp)
+          async function findThemeId(uuid) {
+            const theme = await Theme.findBy('uuid', uuid)
+            if (theme) return theme.id
+            return 1000
+          }
+
+          async function findTierId(uuid) {
+            const tier = await Tier.findBy('uuid', uuid)
+            if (tier) return tier.id
+            return 1000
+          }
+
+          return {
+            uuid: s.uuid,
+            skinName: s.displayName,
+            displayIcon: s.displayIcon,
+            wallpaper: s.wallpaper,
+            weaponId: w.id,
+            themeId: await findThemeId(s.themeUuid),
+            tierId: await findTierId(s.contentTierUuid),
+            bundleId: findBundleId(s.displayName),
+          }
+        })
+      )
+      //preprossing:
+      //removing "random && standard names" -
+      //problem with constraints (UNIQUE)
+      const skins_filter = skins.filter(
+        (sk) =>
+          !sk.skinName.includes('Melee') &&
+          !sk.skinName.includes('Random') &&
+          !sk.skinName.includes('Standard')
+      )
+      await Skin.createMany(skins_filter)
+    }
   }
 }

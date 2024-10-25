@@ -14,8 +14,8 @@ export default class WeaponsController {
       skins = await db
         .from('weapons')
         .where('weapons.weapon_name', category)
-        .join('skins', 'skins.uuid_weapon', '=', 'weapons.uuid')
-        .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+        .join('skins', 'skins.weapon_id', '=', 'weapons.id')
+        .join('tiers', 'tiers.id', '=', 'skins.tier_id')
         .select(
           'skins.uuid',
           'skins.display_icon',
@@ -32,7 +32,8 @@ export default class WeaponsController {
     } else {
       skins = await db
         .from('skins')
-        .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+        .join('tiers', 'tiers.id', '=', 'skins.tier_id')
+        .join('weapons', 'weapons.id', '=', 'skins.weapon_id')
         .select(
           'skins.uuid',
           'skins.display_icon',
@@ -60,8 +61,8 @@ export default class WeaponsController {
       skins = await db
         .from('skins')
         .whereLike('skins.skin_name', `%${search}%`)
-        .join('weapons', 'weapons.uuid', '=', 'skins.uuid_weapon')
-        .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+        .join('weapons', 'weapons.id', '=', 'skins.weapon_id')
+        .join('tiers', 'tiers.id', '=', 'skins.tier_id')
         .select(
           'skins.uuid',
           'skins.display_icon',
@@ -76,7 +77,8 @@ export default class WeaponsController {
     } else {
       skins = await db
         .from('skins')
-        .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+        .join('weapons', 'weapons.id', '=', 'skins.weapon_id')
+        .join('tiers', 'tiers.id', '=', 'skins.tier_id')
         .select(
           'skins.uuid',
           'skins.display_icon',
@@ -84,7 +86,8 @@ export default class WeaponsController {
           'tiers.tier_name_edition',
           'tiers.tier_name',
           'tiers.color',
-          'tiers.tier_icon'
+          'tiers.tier_icon',
+          'weapons.weapon_name'
         )
         .paginate(page, limit)
     }
@@ -105,7 +108,7 @@ export default class WeaponsController {
       const userEmail = await auth.user!.$getAttribute('email')
       const favorite = await db
         .from('user_favorites')
-        .where('user_favorites.uuid_skin', params.uuid)
+        .where('user_favorites.skin_id', params.uuid)
         .andWhere('user_favorites.email_user', userEmail)
       if (favorite.length) isFavorite = true
     }
@@ -126,7 +129,7 @@ export default class WeaponsController {
       skin,
       currency,
       isFavorite,
-      bgImage: skin?.uuidBundle ? skin?.bundle.displayIcona : '',
+      bgImage: skin?.bundleId ? skin?.bundle.displayIcona : '',
     })
   }
 }

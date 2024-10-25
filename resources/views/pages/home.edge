@@ -39,7 +39,7 @@
                       class=" face back | shadow-2xl  h-full"
                       :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
                     >
-                      <a href="{{ route('skin', [skin.uuid]) }}" class="h-full">
+                      <a href="{{ route('skin', [skin.uuid]) }}" class="h-full w-full">
                         @!weapon.card({
                         full_render: skin.display_icon,
                         display_name: skin.skin_name,
@@ -148,11 +148,11 @@
                       <div class="w-48 h-72">
                         <a href="{{ route('skin', [skin.uuid]) }}" class="h-full">
                           @!weapon.card({
-                          full_render: skin.display_icon,
-                          display_name: skin.skin_name,
-                          tier_icon: skin.tier_icon,
-                          tier_name: skin.tier_name,
-                          weapon_name: skin.weapon_name,
+                          full_render: skin.displayIcon,
+                          display_name: skin.skinName,
+                          tier_icon: skin.tierIcon,
+                          tier_name: skin.tierName,
+                          weapon_name: skin.weaponName,
                           currency,
                           show_case: true
                           })

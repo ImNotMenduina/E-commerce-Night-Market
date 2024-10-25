@@ -9,10 +9,10 @@ export default class extends BaseSeeder {
 
     const skins = await Skin.all()
 
-    function findSkinUuid(name) {
+    function findSkinId(name) {
       for (const s of skins) {
         if (name.includes(s.skinName)) {
-          return s.uuid
+          return s.id
         }
       }
       return -1
@@ -24,10 +24,16 @@ export default class extends BaseSeeder {
         levelName: l.displayName,
         levelVideo: l.streamedVideo,
         levelItem: l.levelItem,
-        uuidSkin: findSkinUuid(l.displayName),
+        skinId: findSkinId(l.displayName),
       }
     })
 
-    await Level.createMany(levels)
+    const level_filter = levels.filter((lv) => {
+      lv.skinId === -1 &&
+        !lv.levelName.includes('Melee') &&
+        !lv.levelName.includes('Random') &&
+        !lv.levelName.includes('Standard')
+    })
+    await Level.createMany(level_filter)
   }
 }

@@ -3,15 +3,15 @@ import Weapon from '#models/weapon'
 import db from '@adonisjs/lucid/services/db'
 import Bundle from '#models/bundle'
 
-export default class IndicesController {
+export default class IndexController {
   async index({ view }: HttpContext) {
     const weapons = await Weapon.all()
     const bundles = await Bundle.all()
 
     const skins = await db
       .from('skins')
-      .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
-      .join('weapons', 'weapons.uuid', '=', 'skins.uuid_weapon')
+      .join('tiers', 'tiers.id', '=', 'skins.tier_id')
+      .join('weapons', 'weapons.id', '=', 'skins.weapon_id')
       .select('skins.uuid as uuid')
       .select('skins.skin_name')
       .select('tiers.tier_icon')
@@ -60,7 +60,22 @@ export default class IndicesController {
 
     const lastPosted = await db
       .from('skins')
-      .join('tiers', 'tiers.uuid', '=', 'skins.content_tier_uuid')
+      .join('weapons', 'weapons.id', '=', 'skins.weapon_id')
+      .join('tiers', 'tiers.id', '=', 'skins.tier_id')
+      .select(
+        'skins.uuid',
+        'skins.skin_name as skinName',
+        'skins.display_icon as displayIcon',
+        'skins.theme_id as themeId',
+        'skins.tier_id as tierId',
+        'skins.weapon_id as weaponId',
+        'weapons.weapon_name as weaponName',
+        'weapons.category as category',
+        'tiers.tier_name_edition as tierNameEdition',
+        'tiers.tier_name as tierName',
+        'tiers.color as color',
+        'tiers.tier_icon as tierIcon'
+      )
       .orderBy('skins.created_at', 'desc') // Order by creation date in descending order
       .limit(20)
     // Limit to the last 6 products

@@ -5,7 +5,8 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.string('uuid').primary()
+      table.increments('id').primary()
+      table.string('uuid')
       table.string('tier_name_edition')
       table.string('tier_name')
       table.integer('rank')

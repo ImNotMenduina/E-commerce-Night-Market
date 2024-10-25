@@ -5,6 +5,9 @@ import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Weapon extends BaseModel {
   @column({ isPrimary: true })
+  declare id: number
+
+  @column()
   declare uuid: string
 
   // weapon icon
@@ -22,7 +25,7 @@ export default class Weapon extends BaseModel {
   declare category: string
 
   @hasMany(() => Skin, {
-    foreignKey: 'uuidWeapon',
+    foreignKey: 'weaponId',
   })
   declare skins: HasMany<typeof Skin>
 

@@ -3,7 +3,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class UserFavorite extends BaseModel {
   @column({ isPrimary: true })
-  declare uuidSkin: string
+  declare skinId: number
 
   @column({ isPrimary: true })
   declare emailUser: string

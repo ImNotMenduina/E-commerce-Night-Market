@@ -61,5 +61,4 @@ router
     router.post('/logout', [SessionsController, 'logout']).as('session.logout')
   })
   .prefix('session')
-
 //router.get('/bundles', [BundlesController, 'get_available_bundles']).as('bundles')

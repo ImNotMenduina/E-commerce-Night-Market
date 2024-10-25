@@ -19,12 +19,12 @@ export default class IndexSeeder extends BaseSeeder {
 
   async run() {
     await this.seed(await import('#database/seeders/weapon_seeder'))
+    await this.seed(await import('#database/seeders/tier_seeder'))
     await this.seed(await import('#database/seeders/bundle_seeder'))
+    await this.seed(await import('#database/seeders/theme_seeder'))
     await this.seed(await import('#database/seeders/skin_seeder'))
     await this.seed(await import('#database/seeders/chroma_seeder'))
     await this.seed(await import('#database/seeders/level_seeder'))
-    await this.seed(await import('#database/seeders/theme_seeder'))
-    await this.seed(await import('#database/seeders/tier_seeder'))
     await this.seed(await import('#database/seeders/currency_seeder'))
   }
 }

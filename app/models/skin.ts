@@ -10,6 +10,9 @@ import Level from './level.js'
 
 export default class Skin extends BaseModel {
   @column({ isPrimary: true })
+  declare id: number
+
+  @column()
   declare uuid: string
 
   @column()
@@ -19,47 +22,47 @@ export default class Skin extends BaseModel {
   declare displayIcon: string
 
   @column()
-  declare themeUuid: string
-
-  @column()
-  declare contentTierUuid: string
-
-  @column()
   declare wallpaper: string
 
   @column()
-  declare uuidWeapon: string
+  declare themeId: number
 
   @column()
-  declare uuidBundle: string
+  declare tierId: number
+
+  @column()
+  declare weaponId: number
+
+  @column()
+  declare bundleId: number
 
   @belongsTo(() => Bundle, {
-    foreignKey: 'uuidBundle',
+    foreignKey: 'bundleId',
   })
   declare bundle: BelongsTo<typeof Bundle>
 
   @belongsTo(() => Tier, {
-    foreignKey: 'contentTierUuid',
+    foreignKey: 'tierId',
   })
   declare tier: BelongsTo<typeof Tier>
 
   @belongsTo(() => Theme, {
-    foreignKey: 'themeUuid',
+    foreignKey: 'themeId',
   })
   declare theme: BelongsTo<typeof Theme>
 
   @belongsTo(() => Weapon, {
-    foreignKey: 'uuidWeapon',
+    foreignKey: 'weaponId',
   })
   declare weapon: BelongsTo<typeof Weapon>
 
   @hasMany(() => Chroma, {
-    foreignKey: 'uuidSkin',
+    foreignKey: 'skinId',
   })
   declare chromas: HasMany<typeof Chroma>
 
   @hasMany(() => Level, {
-    foreignKey: 'uuidSkin',
+    foreignKey: 'skinId',
   })
   declare levels: HasMany<typeof Level>
 
