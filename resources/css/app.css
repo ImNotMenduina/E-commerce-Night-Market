@@ -13,6 +13,10 @@ body {
   width: 100%;
 }
 
+[x-cloak] {
+  display: none !important;
+}
+
 .bg-default {
   background-image: url(../src/nightbackground.jpeg);
 }

@@ -129,6 +129,7 @@
   @if (auth.isAuthenticated)
     {{-- Start User Card --}}
     <div
+      x-cloak
       x-show="activeSection === 'profile'"
       class="overflow-hidden bg-opacity-90 border-t border-b border-r border-night-market max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-black shadow-xl rounded-r-lg text-gray-900"
     >
@@ -138,8 +139,9 @@
   @else
     {{-- Start Login Section --}}
     <div
-      class="overflow-hidden flex rounded-r-lg border-r border-t border-b border-night-market"
+      x-cloak
       x-show="activeSection === 'login'"
+      class="overflow-hidden flex rounded-r-lg border-r border-t border-b border-night-market"
     >
       @!users.signin()
     </div>
@@ -147,6 +149,7 @@
   @end
   {{-- Accounts modal --}}
   <div
+    x-cloak
     x-show="activeSection === 'accounts'"
     class="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-800 dark:border-gray-700"
   >
