@@ -63,6 +63,7 @@
     "@adonisjs/static": "^1.1.1",
     "@adonisjs/vite": "^3.0.0",
     "@iconify-json/heroicons": "^1.2.1",
+    "@iconify-json/heroicons-solid": "^1.2.0",
     "@vinejs/vine": "^2.1.0",
     "better-sqlite3": "^11.3.0",
     "edge-iconify": "^2.0.1",
