@@ -52,14 +52,14 @@ export default class UsersController {
   async like({ params }: HttpContext) {
     await UserFavorite.create({
       emailUser: params.email,
-      uuidSkin: params.skinUuid,
+      skinId: params.skinId,
     })
   }
 
   async dislike({ params }: HttpContext) {
     await db
       .from('user_favorites')
-      .where('uuid_skin', params.skinUuid)
+      .where('skin_id', params.skinId)
       .where('email_user', params.email)
       .delete()
   }

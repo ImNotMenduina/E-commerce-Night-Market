@@ -13,6 +13,7 @@ export default class IndexController {
       .join('tiers', 'tiers.id', '=', 'skins.tier_id')
       .join('weapons', 'weapons.id', '=', 'skins.weapon_id')
       .select('skins.uuid as uuid')
+      .select('skins.id as id')
       .select('skins.skin_name')
       .select('tiers.tier_icon')
       .select('tiers.color')

@@ -77,20 +77,20 @@
                       x-init="
                     if (like) {
                         let f = document.getElementById('favorite')
-                        f.setAttribute('data-action','{{ route('user.dislike', [skin.uuid, auth.user.email] ) }}') 
+                        f.setAttribute('data-action','{{ route('user.dislike', [skin.id, auth.user.email] ) }}') 
                       } else {
                         let f = document.getElementById('favorite')
-                        f.setAttribute('data-action', '{{ route('user.like', [skin.uuid, auth.user.email]) }}') 
+                        f.setAttribute('data-action', '{{ route('user.like', [skin.id, auth.user.email]) }}') 
                     } 
                   "
                       @click=" 
                     like = !like
                     if (like) {
                       let f = document.getElementById('favorite')
-                      f.setAttribute('data-action','{{ route('user.like', [skin.uuid, auth.user?.email]) }}') 
+                      f.setAttribute('data-action','{{ route('user.like', [skin.id, auth.user?.email]) }}') 
                     } else {
                       let f = document.getElementById('favorite')
-                      f.setAttribute('data-action', '{{ route('user.dislike', [skin.uuid, auth.user?.email]) }}') 
+                      f.setAttribute('data-action', '{{ route('user.dislike', [skin.id, auth.user?.email]) }}') 
                     }
                     "
                       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"

@@ -107,13 +107,18 @@ export default class WeaponsController {
     if (auth.isAuthenticated) {
       const userEmail = await auth.user!.$getAttribute('email')
       const favorite = await db
-        .from('user_favorites')
-        .where('user_favorites.skin_id', params.uuid)
-        .andWhere('user_favorites.email_user', userEmail)
+        .from('skins')
+        .where('skins.uuid', params.skinUuid)
+        .join('user_favorites', (query) => {
+          query
+            .on('user_favorites.skin_id', '=', 'skins.id')
+            .andOnVal('user_favorites.email_user', '=', userEmail)
+        })
       if (favorite.length) isFavorite = true
     }
 
-    const skin = await Skin.findBy('uuid', params.uuid)
+    const skin = await Skin.findBy('uuid', params.skinUuid)
+
     if (skin) {
       await skin.load('weapon')
       await skin.load('chromas')

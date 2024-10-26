@@ -29,7 +29,7 @@ router
 
 router
   .group(() => {
-    router.get('/skin/:uuid', [WeaponsController, 'get_skin']).as('skin')
+    router.get('/skin/:skinUuid', [WeaponsController, 'get_skin']).as('skin')
   })
   .prefix('/weapon')
 
@@ -44,10 +44,8 @@ router
     router.get('/signup', [UsersController, 'signup']).as('user.signup')
     router.get('/signin', [UsersController, 'signin']).as('user.signin')
 
-    router.post('/favorite/like/:skinUuid/:email', [UsersController, 'like']).as('user.like')
-    router
-      .post('/favorite/dislike/:skinUuid/:email', [UsersController, 'dislike'])
-      .as('user.dislike')
+    router.post('/favorite/like/:skinId/:email', [UsersController, 'like']).as('user.like')
+    router.post('/favorite/dislike/:skinId/:email', [UsersController, 'dislike']).as('user.dislike')
     router
       .get('/favorite/:email', [UsersController, 'favorite'])
       .as('user.favorite')
