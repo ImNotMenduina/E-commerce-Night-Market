@@ -2,7 +2,7 @@
 <aside class="fixed flex z-50" x-data="app()">
   <div class="flex flex-col items-center w-16 h-screen py-8 space-y-8  bg-black ">
     <div class="flex flex-col items-center w-full h-full space-y-8 ">
-
+      {{-- Start Side Bard Icons --}}
       <a href="#">
         <img
           class="w-auto h-8"
@@ -10,7 +10,6 @@
           alt=""
         />
       </a>
-
       {{-- Home Icon --}}
       <a
         href="{{ route('home') }}"
@@ -31,7 +30,6 @@
           />
         </svg>
       </a>
-
       {{-- Account Icon --}}
       <button
         @click="setActive('accounts')"
@@ -52,7 +50,6 @@
           />
         </svg>
       </button>
-
       {{-- Favorites Icon --}}
       <button
         @click="setActive('favorite')"
@@ -64,7 +61,6 @@
           color: ''
         })
       </button>
-
       {{-- Notification Icon --}}
       <a
         href="#"
@@ -85,7 +81,6 @@
           />
         </svg>
       </a>
-
       {{-- Settings Icon --}}
       <a
         href="#"
@@ -108,162 +103,47 @@
         </svg>
       </a>
     </div>
-    {{-- logo --}}
+    {{-- End Side Bard Icons --}}
+    {{-- Start Profile/Login Icon --}}
     <div>
-      <button @click="setActive('login')">
-        @if (auth.isAuthenticated)
+      @if (auth.isAuthenticated)
+        <button @click="setActive('profile')">
           @svg('heroicons:user', {
               width: 32,
               height: 32,
               color: 'white'
           })
-        @else
+        </button>
+      @else
+        <button @click="setActive('login')">
           @svg('heroicons:user-circle', {
-            width: 32,
-            height: 32,
-            color: 'white'
-          })
-        @end
-      </button>
-    </div>
-  </div>
-  {{-- Login Section --}}
-  @if (auth.isAuthenticated)
-    <div
-      x-show="activeSection === 'login'"
-      class="overflow-hidden bg-opacity-90 border-t border-b border-r border-night-market max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-black shadow-xl rounded-r-lg text-gray-900"
-    >
-      {{-- Start Logout Btn --}}
-      <div class="absolute right-0">
-        @form({action: route('session.logout') , method:'post'})
-          @button({
-            type: 1
-          })
-            @svg('heroicons-solid:logout', {
               width: 32,
               height: 32,
-              color: 'purple'
-            })
-          @end
-        @end
-      </div>
-      {{-- End Logout Btn --}}
-
-      {{-- Start Banner --}}
-      <div class="h-32 overflow-hidden">
-        <img
-          class="object-cover object-top w-full"
-          src='https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ'
-          alt='Mountain'
-        />
-      </div>
-      {{-- End Banner --}}
-
-      {{-- Start User Card --}}
-      <div class="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
-        <img
-          class="object-cover object-center h-32"
-          src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ'
-          alt='Woman looking front'
-        />
-      </div>
-      <div class="text-center mt-2 text-white">
-        <h2 class="font-semibold">
-          {{ auth.user.fullName }}
-        </h2>
-        <p class="text-gray-500">
-          {{ auth.user.email }}
-        </p>
-      </div>
-      <ul class="py-4 mt-2 text-gray-700 flex items-center justify-around">
-        <li class="flex flex-col items-center justify-around">
-          @svg('heroicons-solid:heart', {
-            width: 20,
-            height: 20,
-            color: 'white'
+              color: 'white'
           })
-          <div>
-            2k
-          </div>
-        </li>
-        <li class="flex flex-col items-center justify-between">
-          @svg('heroicons-solid:tag', {
-            width: 20,
-            height: 20,
-            color: 'white'
-          })
-          <div>
-            10k
-          </div>
-        </li>
-        <li class="flex flex-col items-center justify-around">
-          @svg('heroicons-solid:user', {
-            width: 20,
-            height: 20,
-            color: 'white'
-          })
-          <div>
-            15
-          </div>
-        </li>
-      </ul>
-      <div class="p-4 border-t mx-8 mt-2">
-        <button
-          class="w-1/2 block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
-        >Follow</button>
-      </div>
-      {{-- End User Card --}}
+        </button>
+      @end
     </div>
+    {{-- End Profile/Login Icon --}}
+  </div>
+  @if (auth.isAuthenticated)
+    {{-- Start User Card --}}
+    <div
+      x-show="activeSection === 'profile'"
+      class="overflow-hidden bg-opacity-90 border-t border-b border-r border-night-market max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-black shadow-xl rounded-r-lg text-gray-900"
+    >
+      @!users.profile()
+    </div>
+    {{-- End User Card --}}
   @else
+    {{-- Start Login Section --}}
     <div
       class="overflow-hidden flex rounded-r-lg border-r border-t border-b border-night-market"
-      x-show="showLogin"
+      x-show="activeSection === 'login'"
     >
-      <div
-        class="bg-login bg-cover h-full overflow-y-auto bg-white sm:w-80 w-60 dark:bg-gray-800 dark:border-gray-700"
-      >
-      </div>
-      <div
-        class="bg-opacity-90 h-full overflow-y-auto sm:w-80 w-60 bg-black flex flex-col justify-center items-center"
-      >
-        <div class="w-28 flex justify-center items-center rounded-full overflow-hidden">
-          <img
-            class="w-auto h-28"
-            src="https://us-tuna-sounds-images.voicemod.net/1b4ce902-c7c2-47b0-a9ac-77e686d4f53c-1672747697263.png"
-            alt=""
-          />
-        </div>
-        {{-- FORM LOGIN --}}
-        <div class="w-full bg-opacity-80 p-10 rounded-lg">
-          @form({action: route('session.login') , method:'post'})
-            @!input({
-              name: 'email',
-              type: 'email',
-              id: 'email',
-              placeholder: 'name@flowbite.com',
-            })
-            @!input({
-              name: 'password',
-              type: 'password',
-              id: 'password',
-              placeholder: 'Password',
-            })
-            @button({
-              type: 0,
-            })
-              Login
-            @end
-          @end
-        </div>
-        <p class="mt-6 text-sm text-center text-neutral-500">
-          Don't have an account yet? 
-          <a href="{{ route('user.signup') }}" class="relative font-medium text-blue-600 group">
-            <span>Sign up</span>
-            <span class="absolute bottom-0 left-0 w-0 group-hover:w-full ease-out duration-300 h-0.5 bg-blue-600"></span>
-          </a>
-        </p>
-      </div>
+      @!users.signin()
     </div>
+    {{-- End Login Section --}}
   @end
   {{-- Accounts modal --}}
   <div
@@ -273,7 +153,6 @@
     <h2 class="px-5 text-lg font-medium text-gray-800 dark:text-white">
       Accounts
     </h2>
-
     <div class="z-50 mt-8 space-y-4">
       <button
         class="flex items-center w-full px-5 py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none"
