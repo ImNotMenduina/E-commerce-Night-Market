@@ -9,141 +9,236 @@
   @body({
     class: [
       `${img}`,
-      'bg-cover',
+      'bg-contain',
       'bg-center'
     ]
   })
     @eval(await auth.check())
     @!nav()
-    <div class="absolute inset-0 bg-black opacity-75">
-    </div>
-    <div
-      x-data="{  chroma_video: '{{ skin.chromas[0].chromaVideo }}', 
-                    full_render: '{{ skin.displayIcon }}' 
-                  }"
-      class="flex flex-row justify-center p-8"
-    >
-      <div class="w-3/5 flex flex-row justify-evenly z-10">
-        <div class="flex flex-col" style="width: 560px;">
-          {{-- Skin card --}}
-          {{-- Skin name --}}
-          <div
-            class="bg-gradient-to-r from-violet-500 to-fuchsia-500 flex flex-row justify-between items-center p-2 rounded-t-lg"
-          >
-            <div>
-              <p class="text-white text-lg font-bold" style="font-family: 'VALORANT', sans-serif">
-                {{ skin.theme.themeName }}
-              </p>
-            </div>
-          </div>
-          <div class="h-64 flex flex-row" x-data="{wallpaper: '{{ skin.wallpaper }}' }">
-            <div class="absolute h-10 p-3">
-              <img src="{{ skin.tier.tierIcon }}" class="object-contain object-center h-10" />
-            </div>
-            <div
-              class="flex flex-row items-center justify-evenly w-full h-full p-5 bg-cover bg-center bg-black"
-              :class="'{{ skin.wallpaper }}' != 'null' ? `bg-[url('{{ skin.wallpaper }}')]`: 'bg-opacity-75'"
-            >
-              {{-- full render weapon image --}}
-              <div class="flex justify-center w-4/5">
-                <img id="banner" :src="full_render" src="" class="object-contain object-center h-40" />
-              </div>
-              {{-- skin chromas --}}
+    <div class="ml-16 flex flex-col w-full text-white">
+      <div
+        class="bg-black bg-opacity-90 h-full"
+        x-data="{  
+          chroma_video: '{{ skin.chromas[0].chromaVideo }}', 
+          full_render: '{{ skin.displayIcon }}', 
+          wallpaper: '{{ skin.wallpaper }}',
+          like: {{ isFavorite }} 
+        }"
+      >
+        <div class="container mx-auto px-4 py-8">
+          <div class="flex flex-wrap -mx-4 justify-evenly">
+            <!-- Product Images -->
+            <div class="w-full md:w-1/2 px-4 mb-8">
 
-              @if(skin.chromas[0].swatch)
-                <div class="flex flex-col justify-start h-full w-9 ml-5">
+              {{-- init --}}
+              <div class="h-64 flex flex-row" x-data="{wallpaper: '{{ skin.wallpaper }}' }">
+                <div class="absolute h-10 p-3">
+                  <img src="{{ skin.tier.tierIcon }}" class="object-contain object-center h-10" />
+                </div>
+                <div
+                  class="flex bg-no-repeat flex-row items-center justify-evenly w-full h-full p-5 bg-cover bg-center bg-black"
+                  :class="'{{ skin.wallpaper }}' != 'null' ? `bg-[url('{{ skin.wallpaper }}')]`: 'bg-opacity-75'"
+                >
+                  {{-- full render weapon image --}}
+                  <div class="flex justify-center w-4/5">
+                    <img id="banner" :src="full_render" src="" class="object-contain object-center h-40" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex gap-4 py-4 justify-center overflow-x-auto">
+                @if(skin.chromas[0].swatch)
                   @each(skin in skin.chromas)
                     <div
                       @click="chroma_video = '{{ skin.chromaVideo }}'; full_render = '{{ skin.fullRender }}'"
-                      class="chroma_wrapper mb-4 hover:opacity-60 cursor-pointer"
+                      class="chroma_wrapper mr-4 cursor-pointer bg-black bg-opacity-85 px-5 rounded-lg"
                     >
-                      <div class="overflow-hidden rounded-sm">
-                        <img src="{{ skin.swatch }}" class="object-cover" />
-                      </div>
+                      <img
+                        src="{{ skin.fullRender }}"
+                        alt="Thumbnail 2"
+                        class="size-16 sm:size-20 object-contain rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
+                        onclick="changeImage(this.src)"
+                      />
+                    </div>
+                  @end
+                @end
+              </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="w-full md:w-1/4 px-4">
+              <h2 class="text-3xl font-bold mb-2">
+                {{ skin.skinName }}
+              </h2>
+              <p class="text-gray-600 mb-4">
+                SKU: WH1000XM4
+              </p>
+              <div class="mb-4">
+                <span class="text-2xl font-bold mr-2">$349.99</span>
+                <span class="text-gray-500 line-through">$399.99</span>
+              </div>
+              <div class="flex items-center mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6 text-yellow-500"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6 text-yellow-500"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6 text-yellow-500"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6 text-yellow-500"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6 text-yellow-500"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="ml-2 text-gray-600">4.5 (120 reviews)</span>
+              </div>
+              <div class="mb-6">
+                <div class="flex flex-col justify-start">
+                  @if(skin.chromas[0].swatch)
+                    <h3 class="text-lg font-semibold mb-2">
+                      Color:
+                    </h3>
+                    <div class="flex h-full w-full">
+                      @each(skin in skin.chromas)
+                        <div
+                          @click="chroma_video = '{{ skin.chromaVideo }}'; full_render = '{{ skin.fullRender }}'"
+                          class="chroma_wrapper mr-4 hover:opacity-60 cursor-pointer"
+                        >
+                          <div class="overflow-hidden rounded-sm w-9 h-9">
+                            <img src="{{ skin.swatch }}" class="object-cover" />
+                          </div>
+                        </div>
+                      @end
                     </div>
                   @end
                 </div>
-              @end
-            </div>
-          </div>
-          {{-- Buttons --}}
-          <div class="flex flex-row justify-between items-end pt-2 pl-2 pr-2 rounded-b-lg bg-black">
-            <div class="flex flex-row">
-              @if(auth.isAuthenticated)
-                <div x-data="{like: {{ isFavorite }}}">
-                  <form id="favorite">
-                    <button
-                      type="submit"
-                      x-init="
-                    if (like) {
-                        let f = document.getElementById('favorite')
-                        f.setAttribute('data-action','{{ route('user.dislike', [skin.id, auth.user.email] ) }}') 
-                      } else {
-                        let f = document.getElementById('favorite')
-                        f.setAttribute('data-action', '{{ route('user.like', [skin.id, auth.user.email]) }}') 
-                    } 
-                  "
-                      @click=" 
-                    like = !like
-                    if (like) {
-                      let f = document.getElementById('favorite')
-                      f.setAttribute('data-action','{{ route('user.like', [skin.id, auth.user?.email]) }}') 
-                    } else {
-                      let f = document.getElementById('favorite')
-                      f.setAttribute('data-action', '{{ route('user.dislike', [skin.id, auth.user?.email]) }}') 
-                    }
-                    "
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                    >
-                      <svg x-show="like == false" class="h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->                        <path
-                          d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"
-                        />
-                      </svg>
-                      <svg x-show="like == true" class="h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->                        <path
-                          d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"
-                        />
-                      </svg>
-                    </button>
-                  </form>
-                </div>
-              @end
-              <button
-                type="button"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              >
-                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                  <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->                  <path
-                    d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
-                  />
-                </svg>
-              </button>
-              <button
-                type="button"
-                class="flex flex-row justify-evenly items-center w-24 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-              >
-                <div>
-                  <img src="{{ currency.currencyIcon }}" class="h-5" />
-                </div>
-                <p>
-                  2750
-                </p>
-              </button>
-            </div>
-            <div class="pr-2">
-              <p class="text-red-600 text-xl font-bold" style="font-family: 'VALORANT', sans-serif">
-                {{ skin.weapon.weaponName }}
-              </p>
+              </div>
+
+              <div class="flex space-x-4 mb-6">
+                <button
+                  class="bg-indigo-600 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                    />
+                  </svg>
+                  Add to Cart
+                </button>
+                @if(auth.isAuthenticated)
+                  <div x-data="{like: {{ isFavorite }}, over:false}">
+                    <form id="favorite">
+                      <button
+                        type="submit"
+                        x-init="
+                        if (like) {
+                            let f = document.getElementById('favorite')
+                            f.setAttribute('data-action','{{ route('user.dislike', [skin.id, auth.user.email] ) }}') 
+                          } else {
+                            let f = document.getElementById('favorite')
+                            f.setAttribute('data-action', '{{ route('user.like', [skin.id, auth.user.email]) }}') 
+                        } 
+                      "
+                        @click=" 
+                        like = !like
+                        if (like) {
+                          let f = document.getElementById('favorite')
+                          f.setAttribute('data-action','{{ route('user.like', [skin.id, auth.user?.email]) }}') 
+                        } else {
+                          let f = document.getElementById('favorite')
+                          f.setAttribute('data-action', '{{ route('user.dislike', [skin.id, auth.user?.email]) }}') 
+                        }
+                      "
+                        class="bg-black flex gap-2 items-center  text-gray-800 px-6 py-2 rounded-md hover:bg-red-700- focus:outline-none"
+                      >
+                        <div x-show="like == false">
+                          @svg('heroicons-solid:heart', {
+                          width: 24,
+                          height: 24,
+                          color: 'white'
+                          })
+                        </div>
+                        <div x-show="like == true">
+                          @svg('heroicons-solid:heart', {
+                          width: 24,
+                          height: 24,
+                          color: 'red'
+                          })
+                        </div>
+                      </button>
+                    </form>
+                  </div>
+                @end
+              </div>
             </div>
           </div>
         </div>
-        <div>
-          {{-- Bundle ad --}}
-        </div>
+
+        <script>
+          function changeImage(src) {
+            document.getElementById("mainImage").src = src;
+          }
+        </script>
       </div>
+      @!footer()
     </div>
-    @!footer()
   @end
 @end
   
