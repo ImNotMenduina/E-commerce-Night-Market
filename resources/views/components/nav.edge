@@ -222,23 +222,26 @@
       {{-- End User Card --}}
     </div>
   @else
-    <div class="flex border-t border-b border-r border-night-market" x-show="showLogin">
+    <div
+      class="overflow-hidden flex rounded-r-lg border-r border-t border-b border-night-market"
+      x-show="showLogin"
+    >
       <div
-        class="bg-login bg-cover h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-80 w-60 dark:bg-gray-800 dark:border-gray-700"
+        class="bg-login bg-cover h-full overflow-y-auto bg-white sm:w-80 w-60 dark:bg-gray-800 dark:border-gray-700"
       >
       </div>
       <div
-        class="bg-opacity-90 h-screen py-8 overflow-y-auto sm:w-80 w-60 bg-black flex flex-col justify-center"
+        class="bg-opacity-90 h-full overflow-y-auto sm:w-80 w-60 bg-black flex flex-col justify-center items-center"
       >
-        <div class="flex justify-center items-center w-full">
+        <div class="w-28 flex justify-center items-center rounded-full overflow-hidden">
           <img
-            class="w-auto h-14"
-            src="https://preview.redd.it/shpmpl91zk761.png?width=1000&format=png&auto=webp&s=9cfd77d2b414ae91725379294b7ab6370238e409"
+            class="w-auto h-28"
+            src="https://us-tuna-sounds-images.voicemod.net/1b4ce902-c7c2-47b0-a9ac-77e686d4f53c-1672747697263.png"
             alt=""
           />
         </div>
         {{-- FORM LOGIN --}}
-        <div class="bg-opacity-80 p-10 rounded-lg">
+        <div class="w-full bg-opacity-80 p-10 rounded-lg">
           @form({action: route('session.login') , method:'post'})
             @!input({
               name: 'email',
@@ -259,6 +262,13 @@
             @end
           @end
         </div>
+        <p class="mt-6 text-sm text-center text-neutral-500">
+          Don't have an account yet? 
+          <a href="{{ route('user.signup') }}" class="relative font-medium text-blue-600 group">
+            <span>Sign up</span>
+            <span class="absolute bottom-0 left-0 w-0 group-hover:w-full ease-out duration-300 h-0.5 bg-blue-600"></span>
+          </a>
+        </p>
       </div>
     </div>
   @end
