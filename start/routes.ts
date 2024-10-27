@@ -47,7 +47,7 @@ router
     router.post('/favorite/like/:skinId/:email', [UsersController, 'like']).as('user.like')
     router.post('/favorite/dislike/:skinId/:email', [UsersController, 'dislike']).as('user.dislike')
     router
-      .get('/favorite/:email', [UsersController, 'favorite'])
+      .post('/favorite', [UsersController, 'favorite'])
       .as('user.favorite')
       .use(middleware.auth())
   })

@@ -1,12 +1,22 @@
+import Card from '#models/card'
 import User from '#models/user'
 import UserFavorite from '#models/user_favorite'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
+import { request } from 'http'
 
 export default class UsersController {
   async create({ request, response }: HttpContext) {
     const { name, email, password } = request.only(['name', 'email', 'password'])
-    await User.create({ fullName: name, email, password })
+    const cards = await Card.query().where('displayName', 'like', '%Schema Card%')
+    const ucard = cards[Math.floor(Math.random() * cards.length)]
+    await User.create({
+      fullName: name,
+      email,
+      password,
+      smallArt: ucard.smallArt,
+      wideArt: ucard.wideArt,
+    })
     return response.redirect().toRoute('home')
   }
 
@@ -64,11 +74,23 @@ export default class UsersController {
       .delete()
   }
 
-  async favorite({ view, params }: HttpContext) {
+  async favorite({ view, request }: HttpContext) {
+    const { email } = request.only(['email'])
     const favorites = await db
       .from('user_favorites')
-      .where('email_user', params.email)
-      .join('skins', 'skins.uuid', '=', 'user_favorites.uuid_skin')
+      .where('email_user', email)
+      .join('skins', 'skins.id', '=', 'user_favorites.skin_id')
+      .join('tiers', 'tiers.id', '=', 'skins.tier_id')
+      .select(
+        'skins.id',
+        'skins.uuid',
+        'skins.display_icon',
+        'skins.skin_name',
+        'tiers.tier_name_edition',
+        'tiers.tier_name',
+        'tiers.color',
+        'tiers.tier_icon'
+      )
     return view.render('pages/users/favorite', { favorites })
   }
 }

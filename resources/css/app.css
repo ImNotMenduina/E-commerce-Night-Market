@@ -29,6 +29,31 @@ body {
   background-image: url(../src/carbobg.jpg);
 }
 
+/* For WebKit browsers (Chrome, Safari) */
+/* Para navegadores WebKit (Chrome, Safari) */
+.scrollable-div::-webkit-scrollbar {
+  width: 8px; /* Largura da scrollbar */
+}
+
+.scrollable-div::-webkit-scrollbar-track {
+  background: transparent; /* Fundo da trilha da scrollbar */
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+  background: black; /* Cor do "thumb" (parte que se arrasta) */
+  border-radius: 10px; /* Cantos arredondados */
+}
+
+.scrollable-div::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Cor do "thumb" ao passar o mouse */
+}
+
+/* Para Firefox */
+.scrollable-div {
+  scrollbar-width: thin; /* Tornar a scrollbar fina */
+  scrollbar-color: #14171e transparent; /* Cor do thumb e da trilha */
+}
+
 #bg-geometric-img {
   opacity: 0.5;
 }
