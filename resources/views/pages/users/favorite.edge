@@ -3,12 +3,12 @@
     <div class="w-full flex flex-col mb-4">
       @each(skin in favorites)
         <div
-          class="mb-2 w-full h-20 flex justify-between items-center py-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none"
+          class="mb-2 w-full h-20 flex justify-between items-center py-2 px-2 transition-colors duration-200 dark:hover:bg-gray-800 gap-x-2 hover:bg-gray-100 focus:outline-none"
         >
           <div class="w-full h-20 flex items-center justify-between">
             <div class="w-3 h-20" style="background-color: {{ skin.color }}">
             </div>
-            <img class="object-contain w-1/2 h-full" src="{{ skin.display_icon }}" alt="" />
+            <img class="object-contain w-1/2 h-14" src="{{ skin.display_icon }}" alt="" />
             <div class="w-20">
               <h1 class="text-sm font-sm text-gray-700 capitalize dark:text-white">
                 {{ skin.skin_name }}
