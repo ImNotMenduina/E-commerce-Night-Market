@@ -32,8 +32,10 @@
                     <div class="card | flex flex-col mb-4 | 2xl:w-56 2xl:h-96 w-48 h-72" x-data="{isFlipped: false}">
                       <div
                         class="face front | shadow-2xl"
-                        @click="isFlipped = true"
-                        :style="isFlipped ? 'transform: perspective(600px) rotateY(180deg);' : ''"
+                        @if(auth.isAuthenticated)
+                          @click="isFlipped = true"
+                          :style="isFlipped ? 'transform: perspective(600px) rotateY(180deg);' : ''"
+                        @end
                       >
                         <img src="https://w0.peakpx.com/wallpaper/839/505/HD-wallpaper-omen-game-valorant-thumbnail.jpg" />
                       </div>
