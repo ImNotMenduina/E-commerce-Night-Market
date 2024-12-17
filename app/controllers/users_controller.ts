@@ -1,15 +1,47 @@
 import Card from '#models/card'
 import User from '#models/user'
 import UserFavorite from '#models/user_favorite'
+import UserPromotion from '#models/user_promotion'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
-import { request } from 'http'
+import { userInfo } from 'os'
 
 export default class UsersController {
   async create({ request, response }: HttpContext) {
     const { name, email, password } = request.only(['name', 'email', 'password'])
+    //CAR E BANNER
     const cards = await Card.query().where('displayName', 'like', '%Schema Card%')
     const ucard = cards[Math.floor(Math.random() * cards.length)]
+
+    //SKINS PROMOTIONS
+    const skins = await db
+      .from('skins')
+      .join('tiers', 'tiers.id', '=', 'skins.tier_id')
+      .join('weapons', 'weapons.id', '=', 'skins.weapon_id')
+      .select('skins.uuid as uuid')
+      .select('skins.id as id')
+      .select('skins.skin_name')
+      .select('tiers.tier_icon')
+      .select('tiers.color')
+      .select('tiers.tier_name')
+      .select('skins.display_icon')
+      .select('weapons.weapon_name')
+
+    //promo skins
+    function randPromoItems() {
+      let promo = []
+      for (let i = 0; i < 5; ) {
+        const skin = skins[Math.floor(Math.random() * skins.length)]
+        if (promo.includes(skin)) {
+          continue
+        } else {
+          promo.push(skin)
+          i++
+        }
+      }
+      return promo
+    }
+
     await User.create({
       fullName: name,
       email,
@@ -17,6 +49,17 @@ export default class UsersController {
       smallArt: ucard.smallArt,
       wideArt: ucard.wideArt,
     })
+
+    const promo = randPromoItems()
+
+    await UserPromotion.createMany([
+      { userEmail: email, skinId: promo[0].id, flipped: false },
+      { userEmail: email, skinId: promo[1].id, flipped: false },
+      { userEmail: email, skinId: promo[2].id, flipped: false },
+      { userEmail: email, skinId: promo[3].id, flipped: false },
+      { userEmail: email, skinId: promo[4].id, flipped: false },
+    ])
+
     return response.redirect().toRoute('home')
   }
 
@@ -92,5 +135,16 @@ export default class UsersController {
         'tiers.tier_icon'
       )
     return view.render('pages/users/favorite', { favorites })
+  }
+
+  async flip_discount({ request }: HttpContext) {
+    const { email, skin_id } = request.only(['email', 'skin_id'])
+
+    // Buscando o registro específico
+    const promoSkin = await db
+      .from('user_promotions')
+      .where('user_email', email)
+      .where('skin_id', skin_id)
+      .update({ flipped: 1 })
   }
 }

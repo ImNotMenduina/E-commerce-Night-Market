@@ -50,6 +50,7 @@ router
       .post('/favorite', [UsersController, 'favorite'])
       .as('user.favorite')
       .use(middleware.auth())
+    router.post('/set_discount', [UsersController, 'flip_discount']).as('user.flip')
   })
   .prefix('/user')
 

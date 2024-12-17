@@ -27,36 +27,69 @@
                 class="h-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 snap mx-auto w-full max-w-[300px] pb-5 transition-all xs:max-w-[400px] sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1140px] 2xl:max-w-[1320px]"
                 x-ref="carousel"
               >
-                @each(skin in promo_skins)
-                  <div class="mx-auto">
-                    <div class="card | flex flex-col mb-4 | 2xl:w-56 2xl:h-96 w-48 h-72" x-data="{isFlipped: false}">
-                      <div
-                        class="face front | shadow-2xl"
-                        @if(auth.isAuthenticated)
-                          @click="isFlipped = true"
-                          :style="isFlipped ? 'transform: perspective(600px) rotateY(180deg);' : ''"
-                        @end
-                      >
-                        <img src="https://w0.peakpx.com/wallpaper/839/505/HD-wallpaper-omen-game-valorant-thumbnail.jpg" />
+                @if(auth.isAuthenticated)
+                  @each(skin in promo_skins)
+                    @if (!skin.flipped)
+                      <div class="mx-auto">
+                        <div class="card | flex flex-col mb-4 | 2xl:w-56 2xl:h-96 w-48 h-72" x-data="{isFlipped: false}">
+                          <div
+                            class="face front | shadow-2xl"
+                            @click="isFlipped = true"
+                            hx-post="{{ route('user.flip') }}"
+                            hx-vals='{"email": "{{ auth.user.email }}", "skin_id": "{{ skin.id }}"}'
+                            hx-trigger="click once"
+                            hx-swap="none"
+                            :style="isFlipped ? 'transform: perspective(600px) rotateY(180deg);' : ''"
+                          >
+                            <img src="https://w0.peakpx.com/wallpaper/839/505/HD-wallpaper-omen-game-valorant-thumbnail.jpg" />
+                          </div>
+                          <div
+                            class=" face back | shadow-2xl  h-full"
+                            :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
+                          >
+                            <a href="{{ route('skin', [skin.uuid]) }}" class="h-full w-full">
+                              @!weapon.card({
+                              full_render: skin.display_icon,
+                              display_name: skin.skin_name,
+                              tier_icon: skin.tier_icon,
+                              tier_name: skin.tier_name,
+                              weapon_name: skin.weapon_name,
+                              currency,
+                              show_case: false
+                              })
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                      <div
-                        class=" face back | shadow-2xl  h-full"
-                        :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
-                      >
-                        <a href="{{ route('skin', [skin.uuid]) }}" class="h-full w-full">
-                          @!weapon.card({
-                          full_render: skin.display_icon,
-                          display_name: skin.skin_name,
-                          tier_icon: skin.tier_icon,
-                          tier_name: skin.tier_name,
-                          weapon_name: skin.weapon_name,
-                          currency,
-                          show_case: false
-                          })
-                        </a>
+                    @else
+                      <div class="mx-auto">
+                        <div class="card | flex flex-col mb-4 | 2xl:w-56 2xl:h-96 w-48 h-72" x-data="{isFlipped: true}">
+                          <div
+                            class=" face back | shadow-2xl  h-full"
+                            :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
+                          >
+                            <a href="{{ route('skin', [skin.uuid]) }}" class="h-full w-full">
+                              @!weapon.card({
+                              full_render: skin.display_icon,
+                              display_name: skin.skin_name,
+                              tier_icon: skin.tier_icon,
+                              tier_name: skin.tier_name,
+                              weapon_name: skin.weapon_name,
+                              currency,
+                              show_case: false
+                              })
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    @end
+                  @end
+                @else
+                  @!weapon.noflipdiscount()
+                  @!weapon.noflipdiscount()
+                  @!weapon.noflipdiscount()
+                  @!weapon.noflipdiscount()
+                  @!weapon.noflipdiscount()
                 @end
               </div>
             </div>
@@ -152,13 +185,13 @@
                         <div class="w-48 h-72">
                           <a href="{{ route('skin', [skin.uuid]) }}" class="h-full">
                             @!weapon.card({
-                            full_render: skin.displayIcon,
-                            display_name: skin.skinName,
-                            tier_icon: skin.tierIcon,
-                            tier_name: skin.tierName,
-                            weapon_name: skin.weaponName,
-                            currency,
-                            show_case: true
+                              full_render: skin.displayIcon,
+                              display_name: skin.skinName,
+                              tier_icon: skin.tierIcon,
+                              tier_name: skin.tierName,
+                              weapon_name: skin.weaponName,
+                              currency,
+                              show_case: true
                             })
                           </a>
                         </div>
