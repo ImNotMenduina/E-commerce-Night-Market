@@ -25,6 +25,10 @@ body {
   background-image: url(../src/omenRelaxed.jpeg);
 }
 
+.bg-signup {
+  background-image: url(../src/omen_signup.png);
+}
+
 .bg-card-promo {
   background-image: url(../src/carbobg.jpg);
 }
