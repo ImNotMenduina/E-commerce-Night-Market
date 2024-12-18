@@ -18,6 +18,7 @@ export default {
         'deluxe': '#009587',
         'premium': '#d1548d',
         'ultra': '#fad663',
+        'night-pink-inter': '#5b3fea',
       },
       backgroundImage: {
         'default-bg': "url('resources/src/defaultbg.png')",

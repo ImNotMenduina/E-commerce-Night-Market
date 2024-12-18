@@ -17,94 +17,6 @@
         >
         </div>
       </div>
-      <section>
-        @!timer()
-      </section>
-      <!-- ====== Card Rand Section Start -->
-      <section class="py-20">
-        <div class="container mx-auto w-full">
-          <div class="-mx-4 flex flex-wrap">
-            <div class="w-full px-4">
-              <div
-                class="h-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 snap mx-auto w-full max-w-[300px] pb-5 transition-all xs:max-w-[400px] sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1140px] 2xl:max-w-[1320px]"
-                x-ref="carousel"
-              >
-                @if(auth.isAuthenticated)
-                  @each(skin in promo_skins)
-                    @if (!skin.flipped)
-                      <div class="mx-auto">
-                        <div class="card | flex flex-col mb-4 | 2xl:w-56 2xl:h-96 w-48 h-72" x-data="{isFlipped: false}">
-                          <div
-                            class="face front | shadow-2xl"
-                            @click="isFlipped = true"
-                            hx-post="{{ route('user.flip') }}"
-                            hx-vals='{"email": "{{ auth.user.email }}", "skin_id": "{{ skin.id }}"}'
-                            hx-trigger="click once"
-                            hx-swap="none"
-                            :style="isFlipped ? 'transform: perspective(600px) rotateY(180deg);' : ''"
-                          >
-                            <img src="https://w0.peakpx.com/wallpaper/839/505/HD-wallpaper-omen-game-valorant-thumbnail.jpg" />
-                          </div>
-                          <div
-                            class=" face back | shadow-2xl  h-full"
-                            :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
-                          >
-                            <a href="{{ route('skin', [skin.uuid]) }}" class="h-full w-full">
-                              @!weapon.card({
-                              full_render: skin.display_icon,
-                              display_name: skin.skin_name,
-                              tier_icon: skin.tier_icon,
-                              tier_name: skin.tier_name,
-                              weapon_name: skin.weapon_name,
-                              currency,
-                              show_case: false,
-                              discount_price: skin.discount_price,
-                              discount: skin.discount,
-                              price: skin.price
-                              })
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    @else
-                      <div class="mx-auto">
-                        <div class="card | flex flex-col mb-4 | 2xl:w-56 2xl:h-96 w-48 h-72" x-data="{isFlipped: true}">
-                          <div
-                            class=" face back | shadow-2xl  h-full"
-                            :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
-                          >
-                            <a href="{{ route('skin', [skin.uuid]) }}" class="h-full w-full">
-                              @!weapon.card({
-                              full_render: skin.display_icon,
-                              display_name: skin.skin_name,
-                              tier_icon: skin.tier_icon,
-                              tier_name: skin.tier_name,
-                              weapon_name: skin.weapon_name,
-                              currency,
-                              show_case: false,
-                              discount_price: skin.discount_price,
-                              discount: skin.discount,
-                              price: skin.price
-                              })
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    @end
-                  @end
-                @else
-                  @!weapon.noflipdiscount()
-                  @!weapon.noflipdiscount()
-                  @!weapon.noflipdiscount()
-                  @!weapon.noflipdiscount()
-                  @!weapon.noflipdiscount()
-                @end
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- ====== Card Rand Section Start -->
 
       <!-- ====== Skins Section Start -->
       <section class="bg-black py-20 dark:bg-dark">
@@ -123,7 +35,13 @@
             </div>
 
             <div class="w-full px-4 lg:w-1/2">
-              <div class="relative xl:p-4">
+              <div class="relative xl:p-4 flex flex-col justify-center items-center">
+                <h3
+                  class="text-6xl bg-gradient-to-r from-night-market via-night-pink-inter to-night-pink inline-block text-transparent bg-clip-text"
+                  style="font-family: 'VALORANT', sans-serif"
+                >
+                  NIGHT.MARKET
+                </h3>
                 <p
                   class="text-white text-6xl font-bold mb-9 text-center"
                   style="font-family: 'VALORANT', sans-serif"
@@ -176,11 +94,11 @@
           <div class="container mx-auto">
             <div
               x-data="
-            {
-              slides: ['1','2','3', '4', '5', '6', '7'],
-              activeSlide: 0
-            }
-          "
+                  {
+                    slides: ['1','2','3', '4', '5', '6', '7'],
+                    activeSlide: 0
+                  }
+                "
             >
               <div class="relative flex justify-center">
                 <div class="relative w-full pb-16">
@@ -193,14 +111,14 @@
                         <div class="w-48 h-72">
                           <a href="{{ route('skin', [skin.uuid]) }}" class="h-full">
                             @!weapon.card({
-                              full_render: skin.displayIcon,
-                              display_name: skin.skinName,
-                              tier_icon: skin.tierIcon,
-                              tier_name: skin.tierName,
-                              weapon_name: skin.weaponName,
-                              currency,
-                              show_case: true,
-                              price: skin.price
+                                    full_render: skin.displayIcon,
+                                    display_name: skin.skinName,
+                                    tier_icon: skin.tierIcon,
+                                    tier_name: skin.tierName,
+                                    weapon_name: skin.weaponName,
+                                    currency,
+                                    show_case: true,
+                                    price: skin.price
                             })
                           </a>
                         </div>
@@ -254,6 +172,201 @@
         </div>
       </section>
       <!-- ====== Skins Carousel Section End -->
+
+      <!-- ====== Card Rand Section Start -->
+      <section class="flex flex-wrap justify-center items-center bg-black bg-opacity-50">
+        <div
+          class="bg-black flex flex-col w-full min-[1900px]:w-[40rem] justify-between items-center p-10 py-20 bg-opacity-80"
+        >
+          <div
+            class="flex flex-col justify-center items-center text-4xl mx-auto mb-12 max-w-[510px] text-center lg:mb-[70px]"
+          >
+            <p
+              class="bg-gradient-to-r via-night-pink-inter to-night-pink inline-block text-transparent bg-clip-text"
+              style="font-family: 'VALORANT', sans-serif"
+            >
+              DESCONTOS
+            </p>
+            <p class="text-white font-bold mb-9 text-center" style="font-family: 'VALORANT', sans-serif">
+              IMPERDÍVEIS EM SKINS DE VALORANT!!
+            </p>
+            <p
+              class="
+                        text-white 
+                        text-base
+                        text-body-color
+                        dark:text-dark-6
+                        text-justify
+                        "
+            >
+              A oportunidade que você esperava chegou! Desbloqueie as skins mais exclusivas de Valorant com descontos especiais por tempo limitado! Mas corra, porque você tem apenas 7 dias para aproveitar essa super promoção!
+            </p>
+          </div>
+          <div class="mt-6">
+            @!timer()
+          </div>
+        </div>
+        <div class="container mx-auto w-full min-[1900px]:w-[73rem] min-[1900px]:py-0 py-10">
+          <div class="-mx-4 flex flex-wrap justify-center items-center">
+            <div class="w-full 2xl:px-5">
+              <div
+                class="h-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 snap mx-auto w-full max-w-[300px] transition-all xs:max-w-[400px] sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1140px] 2xl:max-w-[1320px]"
+                x-ref="carousel"
+              >
+                @if(auth.isAuthenticated)
+                  @each(skin in promo_skins)
+                    @if (!skin.flipped)
+                      <div class="mx-auto">
+                        <div class="card | flex flex-col mb-4 | 2xl:w-56 2xl:h-96 w-48 h-72" x-data="{isFlipped: false}">
+                          <div
+                            class="face front | shadow-2xl"
+                            @click="isFlipped = true"
+                            hx-post="{{ route('user.flip') }}"
+                            hx-vals='{"email": "{{ auth.user.email }}", "skin_id": "{{ skin.id }}"}'
+                            hx-trigger="click once"
+                            hx-swap="none"
+                            :style="isFlipped ? 'transform: perspective(600px) rotateY(180deg);' : ''"
+                          >
+                            <img src="https://w0.peakpx.com/wallpaper/839/505/HD-wallpaper-omen-game-valorant-thumbnail.jpg" />
+                          </div>
+                          <div
+                            class=" face back | shadow-2xl  h-full"
+                            :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
+                          >
+                            <a href="{{ route('skin', [skin.uuid]) }}" class="h-full w-full">
+                              @!weapon.card({
+                                          full_render: skin.display_icon,
+                                          display_name: skin.skin_name,
+                                          tier_icon: skin.tier_icon,
+                                          tier_name: skin.tier_name,
+                                          weapon_name: skin.weapon_name,
+                                          currency,
+                                          show_case: false,
+                                          discount_price: skin.discount_price,
+                                          discount: skin.discount,
+                                          price: skin.price
+                              })
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    @else
+                      <div class="mx-auto">
+                        <div class="card | flex flex-col mb-4 | 2xl:w-56 2xl:h-96 w-48 h-72" x-data="{isFlipped: true}">
+                          <div
+                            class=" face back | shadow-2xl  h-full"
+                            :style="isFlipped ? 'transform: perspective(600px) rotateY(360deg);' : ''"
+                          >
+                            <a href="{{ route('skin', [skin.uuid]) }}" class="h-full w-full">
+                              @!weapon.card({
+                                          full_render: skin.display_icon,
+                                          display_name: skin.skin_name,
+                                          tier_icon: skin.tier_icon,
+                                          tier_name: skin.tier_name,
+                                          weapon_name: skin.weapon_name,
+                                          currency,
+                                          show_case: false,
+                                          discount_price: skin.discount_price,
+                                          discount: skin.discount,
+                                          price: skin.price
+                              })
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    @end
+                  @end
+                @else
+                  @!weapon.noflipdiscount()
+                  @!weapon.noflipdiscount()
+                  @!weapon.noflipdiscount()
+                  @!weapon.noflipdiscount()
+                  @!weapon.noflipdiscount()
+                @end
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ====== Card Rand Section Start -->
+
+      <section class="bg-black py-16 dark:bg-dark">
+        <div class="container mx-auto">
+          <div class="-mx-4 flex flex-wrap">
+            <div class="w-full px-4">
+              <div class="mx-auto mb-12 max-w-[510px] text-center lg:mb-[70px]">
+                <h2 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px]">
+                  Busque suas skins aqui
+                </h2>
+                <p class="text-base text-body-color text-white">
+                  O Night Market disponibiliza uma forma fácil e rápida de encontrar suas skins. Digite o nome da arma ou o nome do bundle para acessar suas informações.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-center flex-wrap">
+            <div class="w-full px-4 lg:w-1/4">
+              <div class="relative px-4">
+                {{-- INPUT --}}
+                <div class="mb-10 max-w-md w-full mx-auto mt-4">
+                  <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <svg
+                        class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="search"
+                      name="search"
+                      placeholder="Begin Typing To Search Users..."
+                      hx-get="{{ route('search.skin') }}"
+                      hx-params="search"
+                      hx-trigger="load, input changed delay:500ms, search"
+                      hx-target="#search-results"
+                      class="form-control block w-full p-4 ps-10 text-sm focus:outline-none text-gray-900 border border-night-market rounded-full bg-black focus:ring-night-market focus:border-night-pink  dark:border-night-market dark:placeholder-gray-400 dark:text-white"
+                      placeholder="Skins, Bundles, Buddies..."
+                    />
+                  </div>
+                </div>
+                {{-- INPUT END --}}
+                {{-- CATEGORY START --}}
+                <div class="flex flex-col justify-between rounded-md bg-opacity-50 mr-4 w-full">
+                  @!weapon.dropdown({shop_image: pistol.shopImage, category: 'Pistols' ,weapons})
+                  @!weapon.dropdown({shop_image: smg.shopImage, category: 'SMGs' ,weapons})
+                  @!weapon.dropdown({shop_image: shotgun.shopImage, category: 'Shotguns' ,weapons})
+                  @!weapon.dropdown({shop_image: rifle.shopImage, category: 'Rifles' ,weapons})
+                  @!weapon.dropdown({shop_image: sniper.shopImage, category: 'Sniper Rifles' ,weapons})
+                  @!weapon.dropdown({shop_image: heavy.shopImage, category: 'Heavy Weapons' ,weapons})
+                </div>
+                {{-- CATEGORY END --}}
+              </div>
+            </div>
+            <div class="mt-4 w-full px-4 lg:w-2/3 flex justify-center items-center">
+              {{-- sHOW SKIKS SEARCH PROGRESSIVE WEB --}}
+              <div
+                hx-get="{{ route('search.category') }}"
+                hx-trigger="load"
+                id="search-results"
+                class="text-white w-full z-10"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- ====== Bundle Carousel Section Start -->
       <section class="pb-12 pt-20 dark:bg-dark-2 lg:pb-[90px] lg:pt-[120px] bg-black bg-opacity-70">
@@ -339,84 +452,6 @@
         </div>
       </section>
       <!-- ====== Bundle Carousel Section End -->
-
-      <section class="bg-black py-16 dark:bg-dark">
-        <div class="container mx-auto">
-          <div class="-mx-4 flex flex-wrap">
-            <div class="w-full px-4">
-              <div class="mx-auto mb-12 max-w-[510px] text-center lg:mb-[70px]">
-                <h2 class="mb-4 text-3xl font-bold text-dark dark:text-white sm:text-4xl md:text-[40px]">
-                  Busque suas skins aqui
-                </h2>
-                <p class="text-base text-body-color text-white">
-                  O Night Market disponibiliza uma forma fácil e rápida de encontrar suas skins. Digite o nome da arma ou o nome do bundle para acessar suas informações.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-center flex-wrap">
-            <div class="w-full px-4 lg:w-1/4">
-              <div class="relative px-4">
-                {{-- INPUT --}}
-                <div class="mb-10 max-w-md w-full mx-auto mt-4">
-                  <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                  <div class="relative">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                      <svg
-                        class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <input
-                      type="search"
-                      name="search"
-                      placeholder="Begin Typing To Search Users..."
-                      hx-get="{{ route('search.skin') }}"
-                      hx-params="search"
-                      hx-trigger="load, input changed delay:500ms, search"
-                      hx-target="#search-results"
-                      class="form-control block w-full p-4 ps-10 text-sm focus:outline-none text-gray-900 border border-night-market rounded-full bg-black focus:ring-night-market focus:border-night-pink  dark:border-night-market dark:placeholder-gray-400 dark:text-white"
-                      placeholder="Skins, Bundles, Buddies..."
-                    />
-                  </div>
-                </div>
-                {{-- INPUT END --}}
-                {{-- CATEGORY START --}}
-                <div class="flex flex-col justify-between rounded-md bg-opacity-50 mr-4 w-full">
-                  @!weapon.dropdown({shop_image: pistol.shopImage, category: 'Pistols' ,weapons})
-                  @!weapon.dropdown({shop_image: smg.shopImage, category: 'SMGs' ,weapons})
-                  @!weapon.dropdown({shop_image: shotgun.shopImage, category: 'Shotguns' ,weapons})
-                  @!weapon.dropdown({shop_image: rifle.shopImage, category: 'Rifles' ,weapons})
-                  @!weapon.dropdown({shop_image: sniper.shopImage, category: 'Sniper Rifles' ,weapons})
-                  @!weapon.dropdown({shop_image: heavy.shopImage, category: 'Heavy Weapons' ,weapons})
-                </div>
-                {{-- CATEGORY END --}}
-              </div>
-            </div>
-            <div class="mt-4 w-full px-4 lg:w-2/3 flex justify-center items-center">
-              {{-- sHOW SKIKS SEARCH PROGRESSIVE WEB --}}
-              <div
-                hx-get="{{ route('search.category') }}"
-                hx-trigger="load"
-                id="search-results"
-                class="text-white w-full z-10"
-              >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- ====== Testimonials Section Start -->
       <section class="pt-20 pb-10 dark:bg-dark lg:pb-20">

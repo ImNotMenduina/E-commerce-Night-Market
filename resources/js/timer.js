@@ -10,7 +10,6 @@ let x = setInterval(function () {
 
   // Check if the countdown has reached zero or negative
   if (diff <= 0) {
-    console.log('auuuu')
     clearInterval(x) // Stop the countdown
     return // Exit the function
   }
