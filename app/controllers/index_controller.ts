@@ -45,12 +45,15 @@ export default class IndexController {
         .select('skins.uuid as uuid')
         .select('skins.id as id')
         .select('skins.skin_name')
+        .select('skins.price as price')
         .select('tiers.tier_icon')
         .select('tiers.color')
         .select('tiers.tier_name')
         .select('skins.display_icon')
         .select('weapons.weapon_name')
         .select('user_promotions.flipped')
+        .select('user_promotions.price as discount_price')
+        .select('user_promotions.discount')
     }
 
     const lastPosted = await db
@@ -64,6 +67,7 @@ export default class IndexController {
         'skins.theme_id as themeId',
         'skins.tier_id as tierId',
         'skins.weapon_id as weaponId',
+        'skins.price as price',
         'weapons.weapon_name as weaponName',
         'weapons.category as category',
         'tiers.tier_name_edition as tierNameEdition',

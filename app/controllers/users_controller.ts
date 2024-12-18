@@ -21,6 +21,7 @@ export default class UsersController {
       .select('skins.uuid as uuid')
       .select('skins.id as id')
       .select('skins.skin_name')
+      .select('skins.price')
       .select('tiers.tier_icon')
       .select('tiers.color')
       .select('tiers.tier_name')
@@ -52,13 +53,23 @@ export default class UsersController {
 
     const promo = randPromoItems()
 
-    await UserPromotion.createMany([
-      { userEmail: email, skinId: promo[0].id, flipped: false },
-      { userEmail: email, skinId: promo[1].id, flipped: false },
-      { userEmail: email, skinId: promo[2].id, flipped: false },
-      { userEmail: email, skinId: promo[3].id, flipped: false },
-      { userEmail: email, skinId: promo[4].id, flipped: false },
-    ])
+    const discount = [10, 20, 25, 37, 50]
+
+    function randDiscount() {
+      return discount[Math.floor(Math.random() * discount.length)]
+    }
+
+    for (let i = 0; i < 5; i++) {
+      let discount = randDiscount()
+      let finalPrice = Math.floor((1 - discount / 100) * promo[i].price)
+      await UserPromotion.create({
+        userEmail: email,
+        skinId: promo[i].id,
+        flipped: 0,
+        discount: randDiscount(),
+        price: finalPrice,
+      })
+    }
 
     return response.redirect().toRoute('home')
   }
@@ -141,7 +152,7 @@ export default class UsersController {
     const { email, skin_id } = request.only(['email', 'skin_id'])
 
     // Buscando o registro específico
-    const promoSkin = await db
+    await db
       .from('user_promotions')
       .where('user_email', email)
       .where('skin_id', skin_id)

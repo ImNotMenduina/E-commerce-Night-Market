@@ -11,6 +11,12 @@ export default class UserPromotion extends BaseModel {
   @column()
   declare flipped: number
 
+  @column()
+  declare discount: number
+
+  @column()
+  declare price: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

@@ -34,6 +34,9 @@ export default class Skin extends BaseModel {
   declare weaponId: number
 
   @column()
+  declare price: number
+
+  @column()
   declare bundleId: number
 
   @belongsTo(() => Bundle, {

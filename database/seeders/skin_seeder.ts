@@ -9,6 +9,7 @@ export default class extends BaseSeeder {
   async run() {
     const weapons = await Weapon.all()
     const bundles = await Bundle.all()
+    const discount = [12, 15, 20, 30, 50]
 
     for (const w of weapons) {
       const response = await fetch(`https://valorant-api.com/v1/weapons/${w.uuid}`)
@@ -41,6 +42,7 @@ export default class extends BaseSeeder {
             displayIcon: s.chromas[0].fullRender,
             wallpaper: s.wallpaper,
             weaponId: w.id,
+            price: 2250,
             themeId: await findThemeId(s.themeUuid),
             tierId: await findTierId(s.contentTierUuid),
             bundleId: findBundleId(s.displayName),

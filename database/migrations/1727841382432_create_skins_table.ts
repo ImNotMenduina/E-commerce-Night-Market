@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('skin_name')
       table.string('display_icon')
       table.string('wallpaper')
+      table.integer('price').notNullable()
       table.integer('theme_id').references('themes.id').onDelete('CASCADE')
       table.integer('tier_id').references('tiers.id').onDelete('CASCADE')
       table.integer('weapon_id').references('weapons.id').onDelete('CASCADE')
