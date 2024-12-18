@@ -60,7 +60,7 @@
           hx-trigger="click, every 2s"
           hx-target="#favorites"
           class="p-1.5 focus:outline-nones transition-colors duration-200 rounded-lg dark:hover:bg-gray-800 hover:bg-gray-100"
-          :class="activeSection == 'favorite' ? 'transition-colors duration-200 bg-blue-100 rounded-lg dark:text-night-market dark:bg-gray-800' : 'text-gray-500'"
+          :class="activeSection == 'favorite' ? 'transition-colors duration-200 bg-blue-100 rounded-lg dark:text-night-market dark:bg-gray-800' : 'text-gray-400'"
         >
           @svg('heroicons-outline:heart', {
           width: 24,
@@ -69,6 +69,24 @@
           })
         </button>
       @end
+      {{-- Favorites Icon --}}
+
+      <button
+        @click="setActive('cart')"
+        hx-post="{{ route('user.favorite') }}"
+        hx-vals='{"email": ""}'
+        hx-trigger="click, every 2s"
+        hx-target="#favorites"
+        class="p-1.5 focus:outline-nones transition-colors duration-200 rounded-lg dark:hover:bg-gray-800 hover:bg-gray-100"
+        :class="activeSection == 'cart' ? 'transition-colors duration-200 bg-blue-100 rounded-lg dark:text-night-market dark:bg-gray-800' : 'text-gray-400'"
+      >
+        @svg('heroicons:shopping-cart', {
+          width: 24,
+          height: 24,
+          color: ''
+        })
+      </button>
+
       {{-- Notification Icon --}}
       <a
         href="#"
@@ -162,6 +180,21 @@
       style="font-family: 'VALORANT', sans-serif"
     >
       Favoritos
+    </h2>
+    <div class="w-96 scrollable-div h-full z-50 mt-4 space-y-4 overflow-auto" id="favorites">
+    </div>
+  </div>
+  {{-- Cart Section --}}
+  <div
+    x-cloak
+    x-show="activeSection === 'cart'"
+    class="h-screen py-5 bg-black bg-opacity-90 overflow-hidden flex flex-col rounded-r-lg border-r border-t border-b border-night-market"
+  >
+    <h2
+      class="px-5 text-xl font-medium text-gray-800 dark:text-white"
+      style="font-family: 'VALORANT', sans-serif"
+    >
+      Carrinho
     </h2>
     <div class="w-96 scrollable-div h-full z-50 mt-4 space-y-4 overflow-auto" id="favorites">
     </div>
