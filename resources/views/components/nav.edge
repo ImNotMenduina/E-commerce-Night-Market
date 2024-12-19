@@ -69,24 +69,44 @@
           })
         </button>
       @end
-      {{-- Favorites Icon --}}
-
-      <button
-        @click="setActive('cart')"
-        hx-post="{{ route('user.favorite') }}"
-        hx-vals='{"email": ""}'
-        hx-trigger="click, every 2s"
-        hx-target="#favorites"
-        class="p-1.5 focus:outline-nones transition-colors duration-200 rounded-lg dark:hover:bg-gray-800 hover:bg-gray-100"
-        :class="activeSection == 'cart' ? 'transition-colors duration-200 bg-blue-100 rounded-lg dark:text-night-market dark:bg-gray-800' : 'text-gray-400'"
-      >
-        @svg('heroicons:shopping-cart', {
-          width: 24,
-          height: 24,
-          color: ''
-        })
-      </button>
-
+      
+      {{-- Cart Cookie Icon --}}
+      @if(!auth.isAuthenticated)
+        <button
+          @click="setActive('cart')"
+          hx-get="{{ route('user.getCookie') }}"
+          hx-trigger="click, every 2s"
+          hx-target="#cart"
+          class="p-1.5 focus:outline-nones transition-colors duration-200 rounded-lg dark:hover:bg-gray-800 hover:bg-gray-100"
+          :class="activeSection == 'cart' ? 'transition-colors duration-200 bg-blue-100 rounded-lg dark:text-night-market dark:bg-gray-800' : 'text-gray-400'"
+        >
+          @svg('heroicons:shopping-cart', {
+            width: 24,
+            height: 24,
+            color: ''
+          })
+        </button>
+      @end
+      
+      {{-- Cart DB Icon --}}
+      @if(auth.isAuthenticated)
+        <button
+          @click="setActive('cart')"
+          hx-get="{{ route('user.getCookie') }}"
+          hx-vals='{"email": ""}'
+          hx-trigger="click, every 2s"
+          hx-target="#cart"
+          class="p-1.5 focus:outline-nones transition-colors duration-200 rounded-lg dark:hover:bg-gray-800 hover:bg-gray-100"
+          :class="activeSection == 'cart' ? 'transition-colors duration-200 bg-blue-100 rounded-lg dark:text-night-market dark:bg-gray-800' : 'text-gray-400'"
+        >
+          @svg('heroicons:shopping-cart', {
+            width: 24,
+            height: 24,
+            color: ''
+          })
+        </button>
+      @end
+      
       {{-- Notification Icon --}}
       <a
         href="#"
@@ -181,7 +201,7 @@
     >
       Favoritos
     </h2>
-    <div class="w-96 scrollable-div h-full z-50 mt-4 space-y-4 overflow-auto" id="favorites">
+    <div class="w-[500px] scrollable-div h-full z-50 mt-4 space-y-4 overflow-auto" id="favorites">
     </div>
   </div>
   {{-- Cart Section --}}
@@ -196,7 +216,7 @@
     >
       Carrinho
     </h2>
-    <div class="w-96 scrollable-div h-full z-50 mt-4 space-y-4 overflow-auto" id="favorites">
+    <div class="w-[500px] scrollable-div h-full z-50 mt-4 space-y-4 overflow-auto" id="cart">
     </div>
   </div>
   <script>

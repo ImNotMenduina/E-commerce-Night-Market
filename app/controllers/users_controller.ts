@@ -1,12 +1,48 @@
 import Card from '#models/card'
+import Skin from '#models/skin'
 import User from '#models/user'
 import UserFavorite from '#models/user_favorite'
 import UserPromotion from '#models/user_promotion'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
-import { userInfo } from 'os'
 
 export default class UsersController {
+  async delete_skin_cookie({ request, response }: HttpContext) {
+    const { skin_id } = request.only(['skin_id'])
+    const cartItems = request.cookie('cart_items', [])
+
+    const indexToRemove = cartItems.indexOf(skin_id)
+    if (indexToRemove != -1) {
+      cartItems.splice(indexToRemove, 1)
+    }
+
+    response.cookie('cart_items', cartItems)
+  }
+
+  async set_cart_cookie({ request, response }: HttpContext) {
+    const { skin_id } = request.only(['skin_id'])
+    const cartItems = request.cookie('cart_items', [])
+    cartItems.push(skin_id)
+    response.cookie('cart_items', cartItems)
+  }
+
+  async get_cart_cookie({ request, view }: HttpContext) {
+    const cartItems = request.cookie('cart_items', [])
+    const items = []
+
+    for await (const id of cartItems) {
+      let skin = await Skin.find(id)
+      if (skin) {
+        await skin.load('tier')
+        items.push(skin)
+      }
+    }
+
+    const currency = await db.from('currencies').where('currency_name', 'VALORANT POINTS').first()
+
+    return view.render('pages/users/cart', { items, currency })
+  }
+
   async create({ request, response }: HttpContext) {
     const { name, email, password } = request.only(['name', 'email', 'password'])
     //CAR E BANNER

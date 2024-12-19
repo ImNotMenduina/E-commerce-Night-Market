@@ -51,6 +51,10 @@ router
       .as('user.favorite')
       .use(middleware.auth())
     router.post('/set_discount', [UsersController, 'flip_discount']).as('user.flip')
+    //not logged cart
+    router.post('cart', [UsersController, 'set_cart_cookie']).as('user.setCookie')
+    router.get('cart', [UsersController, 'get_cart_cookie']).as('user.getCookie')
+    router.delete('cart', [UsersController, 'delete_skin_cookie']).as('user.deleteSkinCookie')
   })
   .prefix('/user')
 
